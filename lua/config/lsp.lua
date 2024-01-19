@@ -1,4 +1,3 @@
 require("mason-lspconfig").setup({
-  ensure_installed = { "metals" },
+  ensure_installed = { "java-language-server" },
 })
-require("lspconfig").metals.setup({})
