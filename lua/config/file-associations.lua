@@ -1,12 +1,8 @@
-vim.api.nvim_create_autocmd("BufRead", {
-  pattern = "*.log",
-  callback = function()
-    vim.bo.filetype = "log"
-  end,
-})
-vim.api.nvim_create_autocmd("BufNewFile", {
-  pattern = "*.log",
-  callback = function()
-    vim.bo.filetype = "log"
-  end,
-})
+for _, v in ipairs({ "BufRead", "BufNewFile", "FileType" }) do
+  vim.api.nvim_create_autocmd(v, {
+    pattern = "*.log",
+    callback = function()
+      vim.bo.filetype = "log"
+    end,
+  })
+end
