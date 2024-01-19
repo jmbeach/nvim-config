@@ -1,5 +1,6 @@
 local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 
+-- Adds a parser for log files
 -- Have to manaully copy files from https://github.com/Tudyx/tree-sitter-log/tree/main/queries
 -- to ~/.local/share/nvim/lazy/nvim-treesitter/queries/log
 parser_config.log = {

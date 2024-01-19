@@ -5,9 +5,10 @@ return {
   -- add monokai
   { "tanvirtin/monokai.nvim" },
 
+  -- add darcula
   { "doums/darcula" },
 
-  -- Configure LazyVim to load gruvbox
+  -- Configure LazyVim to load darcula
   {
     "LazyVim/LazyVim",
     opts = {
