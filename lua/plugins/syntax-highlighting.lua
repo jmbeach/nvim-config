@@ -2,7 +2,6 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
-      -- doing this to remove jsonc because it causes problems on my work laptop
       ensure_installed = {
         "bash",
         "c",
