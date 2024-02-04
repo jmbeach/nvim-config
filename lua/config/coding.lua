@@ -12,3 +12,6 @@ nmap \\<LeftMouse> <Plug>(VM-Mouse-Column)
 ]],
   false
 )
+
+-- Lazy vim sets clipboard to unnamedplus, but I want it to be empty
+vim.opt.clipboard = ""
