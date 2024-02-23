@@ -13,3 +13,10 @@ local lazyterm = function()
 end
 vim.keymap.set("n", "<M-/>", lazyterm, { desc = "Terminal (root dir)" })
 vim.keymap.set("t", "<M-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
+
+
+-- Map leader f p to print full file path
+vim.keymap.set("n", "<leader>fp", ":lua print(vim.api.nvim_buf_get_name(0))<cr>", { desc = "Print full file path" })
+
+-- setup telescope live grep args
+vim.keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
