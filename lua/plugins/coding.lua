@@ -11,7 +11,12 @@ return {
     "mg979/vim-visual-multi",
     branch = "master",
   },
+  -- Get grep args with telescope
   {
     "nvim-telescope/telescope-live-grep-args.nvim",
+  },
+  -- Guess indentation for file
+  {
+    "tpope/vim-sleuth",
   },
 }

@@ -30,5 +30,14 @@ vim.keymap.set("n", "<leader>fp", ":lua print(vim.api.nvim_buf_get_name(0))<cr>"
 -- setup telescope live grep args
 vim.keymap.set("n", "<leader>/", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
 
+-- copy / paste to clipboard
 vim.keymap.set("v", "<leader>cc", '"+y', { desc = "Copy to clipboard" })
 vim.keymap.set("n", "<leader>p", '"+p', { desc = "Paste from clipboard" })
+
+-- toggle completion
+vim.keymap.set(
+  "n",
+  "<leader>ct",
+  ":lua require('cmp').setup { enabled = not require('cmp').config.enabled }<CR>",
+  { desc = "Toggle completion" }
+)
