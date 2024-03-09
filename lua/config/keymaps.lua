@@ -32,6 +32,7 @@ vim.keymap.set("n", "<leader>/", ":lua require('telescope').extensions.live_grep
 
 -- copy / paste to clipboard
 vim.keymap.set("v", "<leader>cc", '"+y', { desc = "Copy to clipboard" })
+vim.keymap.set("n", "<leader>cc", '"+yy', { desc = "Copy line to clipboard" })
 vim.keymap.set("n", "<leader>p", '"+p', { desc = "Paste from clipboard" })
 
 -- toggle completion
@@ -41,3 +42,9 @@ vim.keymap.set(
   ":lua require('cmp').setup { enabled = not require('cmp').config.enabled }<CR>",
   { desc = "Toggle completion" }
 )
+
+-- make multiline string searchable
+vim.keymap.set("n", "<leader>sx", ":%s/\\n/\\\\n/g<cr>:%s/\\s\\s\\+/\\\\s\\\\+/g<cr>", { desc = "Make searchable" })
+
+-- move word when broken up by key like "-"
+vim.keymap.set("n", "<M-w>", "/[_A-Z-]\\|\\><cr>", { desc = "Move word with seperators" })
