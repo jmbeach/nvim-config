@@ -2,6 +2,8 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
+local neogit = require("neogit")
+
 -- Keep cursor centered when paging up and down
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up" })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Half page down" })
@@ -31,8 +33,8 @@ vim.keymap.set("n", "<leader>fp", ":lua print(vim.api.nvim_buf_get_name(0))<cr>"
 vim.keymap.set("n", "<leader>/", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
 
 -- copy / paste to clipboard
-vim.keymap.set("v", "<leader>cc", '"+y', { desc = "Copy to clipboard" })
-vim.keymap.set("n", "<leader>cc", '"+yy', { desc = "Copy line to clipboard" })
+vim.keymap.set("v", "<leader>cy", '"+y', { desc = "Copy to clipboard" })
+vim.keymap.set("n", "<leader>cy", '"+yy', { desc = "Copy line to clipboard" })
 vim.keymap.set("n", "<leader>p", '"+p', { desc = "Paste from clipboard" })
 
 -- toggle completion
@@ -48,3 +50,6 @@ vim.keymap.set("n", "<leader>sx", ":%s/\\n/\\\\n/g<cr>:%s/\\s\\s\\+/\\\\s\\\\+/g
 
 -- move word when broken up by key like "-"
 vim.keymap.set("n", "<M-w>", "/[_A-Z-]\\|\\><cr>", { desc = "Move word with seperators" })
+
+-- use neogit instead of lazygit
+vim.keymap.set("n", "<leader>gg", neogit.open, { desc = "Lazygit (root dir)" })
