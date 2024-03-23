@@ -33,8 +33,8 @@ vim.keymap.set("n", "<leader>fp", ":lua print(vim.api.nvim_buf_get_name(0))<cr>"
 vim.keymap.set("n", "<leader>/", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
 
 -- copy / paste to clipboard
-vim.keymap.set("v", "<leader>cy", '"+y', { desc = "Copy to clipboard" })
-vim.keymap.set("n", "<leader>cy", '"+yy', { desc = "Copy line to clipboard" })
+vim.keymap.set("v", "<leader>y", '"+y', { desc = "Copy to clipboard" })
+vim.keymap.set("n", "<leader>y", '"+yy', { desc = "Copy line to clipboard" })
 vim.keymap.set("n", "<leader>p", '"+p', { desc = "Paste from clipboard" })
 
 -- toggle completion
