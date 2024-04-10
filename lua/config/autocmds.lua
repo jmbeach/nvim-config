@@ -43,14 +43,17 @@ function GitFetchUpstream(on_complete)
   job:start()
 end
 
+local prev_neogit_status_open = false
 vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "*",
   callback = function()
-    if is_neogit_status_open() then
+    local is_open = is_neogit_status_open()
+    if is_open and not prev_neogit_status_open then
       local neogit = require("neogit")
       GitFetchUpstream(function()
         neogit.refresh_manually()
       end)
     end
+    prev_neogit_status_open = is_open
   end,
 })

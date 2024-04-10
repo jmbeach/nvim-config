@@ -51,9 +51,6 @@ vim.keymap.set("n", "<leader>sx", ":%s/\\n/\\\\n/g<cr>:%s/\\s\\s\\+/\\\\s\\\\+/g
 -- move word when broken up by key like "-"
 vim.keymap.set("n", "<M-w>", "/[_A-Z-]\\|\\><cr>", { desc = "Move word with seperators" })
 
--- use neogit instead of lazygit
-vim.keymap.set("n", "<leader>gg", neogit.open, { desc = "Lazygit (root dir)" })
-
 -- use leader + g + d to open/close diff view
 local diffview_toggle = function()
   local lib = require("diffview.lib")
@@ -67,3 +64,9 @@ local diffview_toggle = function()
   end
 end
 vim.keymap.set("n", "<leader>gd", diffview_toggle, { desc = "Diffview Open" })
+
+-- use leader g + b to toggle git blame
+vim.keymap.set("n", "<leader>gb", "<Cmd>GitBlameToggle<CR>", { desc = "Git Blame Toggle" })
+
+-- use neogit instead of lazygit
+vim.keymap.set("n", "<leader>gg", neogit.open, { desc = "Neogit (root dir)" })
