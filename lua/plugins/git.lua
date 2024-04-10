@@ -11,5 +11,23 @@ return {
       "ibhagwan/fzf-lua", -- optional
     },
     config = true,
+    opts = function(_, opts)
+      opts.mappings = {
+        finder = {
+          ["<cr>"] = "Select",
+          ["<c-y>"] = "Select",
+          ["<c-c>"] = "Close",
+          ["<esc>"] = "Close",
+          ["<c-n>"] = "Next",
+          ["<c-p>"] = "Previous",
+          ["<down>"] = "Next",
+          ["<up>"] = "Previous",
+          ["<tab>"] = "MultiselectToggleNext",
+          ["<s-tab>"] = "MultiselectTogglePrevious",
+          ["<c-j>"] = "NOP",
+        },
+      }
+      return opts
+    end,
   },
 }
