@@ -53,3 +53,17 @@ vim.keymap.set("n", "<M-w>", "/[_A-Z-]\\|\\><cr>", { desc = "Move word with sepe
 
 -- use neogit instead of lazygit
 vim.keymap.set("n", "<leader>gg", neogit.open, { desc = "Lazygit (root dir)" })
+
+-- use leader + g + d to open/close diff view
+local diffview_toggle = function()
+  local lib = require("diffview.lib")
+  local view = lib.get_current_view()
+  if view then
+    -- Current tabpage is a Diffview; close it
+    vim.cmd.DiffviewClose()
+  else
+    -- No open Diffview exists: open a new one
+    vim.cmd.DiffviewOpen()
+  end
+end
+vim.keymap.set("n", "<leader>gd", diffview_toggle, { desc = "Diffview Open" })
