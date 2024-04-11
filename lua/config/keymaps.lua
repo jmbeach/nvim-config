@@ -89,7 +89,10 @@ vim.keymap.set("n", "<leader>h", function()
 end, { desc = "Open harpoon window" })
 
 -- setup telescope live grep args
-vim.keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
-vim.keymap.set("n", "<leader>/", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
+local telescope = require("telescope")
+local telescope_builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>/", telescope.extensions.live_grep_args.live_grep_args, { desc = "Find in Files" })
+vim.keymap.set("v", "<leader>/", telescope_builtin.grep_string, { desc = "Find Selection in Files" })
 
+-- Open oil on leader + e
 vim.keymap.set("n", "<leader>e", require("oil").toggle_float, { desc = "Open file explorer" })
