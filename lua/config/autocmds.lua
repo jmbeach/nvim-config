@@ -2,8 +2,13 @@
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
 
+local function augroup(name)
+  return vim.api.nvim_create_augroup("mine_" .. name, { clear = true })
+end
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "text", "gitcommit", "markdown" },
+  group = augroup("text_settings"),
   callback = function()
     vim.opt_local.wrap = true
     vim.opt_local.spell = true
@@ -46,6 +51,7 @@ end
 local prev_neogit_status_open = false
 vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "*",
+  group = augroup("neogit"),
   callback = function()
     local is_open = is_neogit_status_open()
     if is_open and not prev_neogit_status_open then
