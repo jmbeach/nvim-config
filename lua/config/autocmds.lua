@@ -63,3 +63,12 @@ vim.api.nvim_create_autocmd("BufEnter", {
     prev_neogit_status_open = is_open
   end,
 })
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "*",
+  group = augroup("newline_comments"),
+  callback = function()
+    vim.opt.formatoptions:remove({ "c", "r", "o" })
+  end,
+  desc = "Remove newline comments",
+})
