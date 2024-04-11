@@ -3,6 +3,7 @@
 -- Add any additional keymaps here
 
 local neogit = require("neogit")
+local harpoon = require("harpoon")
 
 -- Keep cursor centered when paging up and down
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up" })
@@ -28,9 +29,6 @@ end
 
 -- Map leader f p to print full file path
 vim.keymap.set("n", "<leader>fp", ":lua print(vim.api.nvim_buf_get_name(0))<cr>", { desc = "Print full file path" })
-
--- setup telescope live grep args
-vim.keymap.set("n", "<leader>/", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
 
 -- copy / paste to clipboard
 vim.keymap.set("v", "<leader>y", '"+y', { desc = "Copy to clipboard" })
@@ -70,3 +68,28 @@ vim.keymap.set("n", "<leader>gb", "<Cmd>GitBlameToggle<CR>", { desc = "Git Blame
 
 -- use neogit instead of lazygit
 vim.keymap.set("n", "<leader>gg", neogit.open, { desc = "Neogit (root dir)" })
+
+local get_harpoon_function = function(index)
+  return function()
+    harpoon:list():select(index)
+  end
+end
+-- harpoon keybindings
+vim.keymap.set("n", "<leader>1", get_harpoon_function(1), { desc = "Open harpoon window 1" })
+vim.keymap.set("n", "<leader>2", get_harpoon_function(2), { desc = "Open harpoon window 2" })
+vim.keymap.set("n", "<leader>3", get_harpoon_function(3), { desc = "Open harpoon window 3" })
+vim.keymap.set("n", "<leader>4", get_harpoon_function(4), { desc = "Open harpoon window 4" })
+vim.keymap.set("n", "<leader>5", get_harpoon_function(5), { desc = "Open harpoon window 5" })
+vim.keymap.set("n", "<leader>H", function()
+  harpoon:list():add()
+  vim.notify("󰆤 File Harpooned 󰆤", vim.log.levels.INFO, { title = "Harpoon", icon = "󰯇" })
+end, { desc = "Harpoon File" })
+vim.keymap.set("n", "<leader>h", function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end, { desc = "Open harpoon window" })
+
+-- setup telescope live grep args
+vim.keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
+vim.keymap.set("n", "<leader>/", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
+
+vim.keymap.set("n", "<leader>e", require("oil").toggle_float, { desc = "Open file explorer" })
