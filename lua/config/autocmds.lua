@@ -72,3 +72,45 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end,
   desc = "Remove newline comments",
 })
+
+local function starts_with(str, prefix)
+  return str:sub(1, #prefix) == prefix
+end
+local function is_oil_open()
+  local tabs = vim.api.nvim_list_tabpages()
+  for _, tabpage_id in ipairs(tabs) do
+    local windows = vim.api.nvim_tabpage_list_wins(tabpage_id)
+    for _, window_id in ipairs(windows) do
+      local bufnr = vim.api.nvim_win_get_buf(window_id)
+      local bufname = vim.api.nvim_buf_get_name(bufnr)
+      if starts_with(bufname, "oil://") then
+        local line_count = vim.api.nvim_buf_line_count(bufnr)
+        return line_count > 1
+      end
+    end
+  end
+  return false
+end
+
+local prev_oil_open = false
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "*",
+  group = augroup("oil"),
+  callback = function()
+    local is_open = is_oil_open()
+    if is_open and not prev_oil_open then
+      local Job = require("plenary.job")
+      local job = Job:new({
+        command = "sleep",
+        args = { "0.25" },
+        on_exit = function()
+          vim.schedule(function()
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-p>", true, true, true), "m", true)
+          end)
+        end,
+      })
+      job:start()
+    end
+    prev_oil_open = is_open
+  end,
+})
