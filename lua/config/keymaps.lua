@@ -4,6 +4,9 @@
 
 local neogit = require("neogit")
 local harpoon = require("harpoon")
+local oil = require("oil")
+local telescope = require("telescope")
+local telescope_builtin = require("telescope.builtin")
 local scroll = require("neoscroll")
 
 -- Smooth scrolling on page up and down
@@ -96,10 +99,11 @@ vim.keymap.set("n", "<leader>h", function()
 end, { desc = "Open harpoon window" })
 
 -- setup telescope live grep args
-local telescope = require("telescope")
-local telescope_builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>/", telescope.extensions.live_grep_args.live_grep_args, { desc = "Find in Files" })
 vim.keymap.set("v", "<leader>/", telescope_builtin.grep_string, { desc = "Find Selection in Files" })
 
 -- Open oil on leader + e
-vim.keymap.set("n", "<leader>e", require("oil").toggle_float, { desc = "Open file explorer" })
+local open_oil = function()
+  oil.open()
+end
+vim.keymap.set("n", "<leader>e", open_oil, { desc = "Open file explorer" })
