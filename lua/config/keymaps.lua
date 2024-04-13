@@ -4,10 +4,17 @@
 
 local neogit = require("neogit")
 local harpoon = require("harpoon")
+local scroll = require("neoscroll")
 
--- Keep cursor centered when paging up and down
-vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up" })
-vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Half page down" })
+-- Smooth scrolling on page up and down
+local scroll_down = function()
+  scroll.scroll(vim.wo.scroll, true, 350)
+end
+local scroll_up = function()
+  scroll.scroll(-vim.wo.scroll, true, 350)
+end
+vim.keymap.set("n", "<C-u>", scroll_up, { desc = "Half page up" })
+vim.keymap.set("n", "<C-d>", scroll_down, { desc = "Half page down" })
 
 -- Add a mapping to make alt + / open and hide the terminal
 local Util = require("lazyvim.util")
