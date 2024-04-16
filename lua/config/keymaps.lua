@@ -108,6 +108,8 @@ vim.keymap.set("n", "<leader>fk", telescope_builtin.keymaps, { desc = "Find keym
 vim.keymap.set("n", "<leader>fj", telescope_builtin.jumplist, { desc = "Find jumplist" })
 vim.keymap.set("n", "<leader>cs", telescope_builtin.spell_suggest, { desc = "Spell suggest" })
 vim.keymap.set("n", "<leader>fs", telescope_builtin.lsp_workspace_symbols, { desc = "Find symbols" })
+vim.keymap.set("n", "<leader>fn", telescope.extensions.noice.noice, { desc = "Find notifications" })
+vim.keymap.set("n", "<leader>fh", telescope_builtin.highlights, { desc = "Find highlight colors" })
 
 -- general
 vim.keymap.set("v", "/", vim_helpers.search_visually_selected_text, { desc = "Visual search" })
