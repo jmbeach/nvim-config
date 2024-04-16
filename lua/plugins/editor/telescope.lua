@@ -1,6 +1,6 @@
 local Util = require("lazyvim.util")
-local telescope = require("telescope")
 local telescope_builtin = require("telescope.builtin")
+local Job = require("plenary.job")
 
 return {
   {
@@ -49,6 +49,49 @@ return {
       -- git
       { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
       { "<leader>gs", "<cmd>Telescope git_status<CR>", desc = "status" },
+      {
+        "<leader>gm",
+        function()
+          Job:new({
+            command = "git",
+            args = { "--no-pager", "diff", "--name-only", "master..", "--", "." },
+            on_exit = function(j, return_val)
+              local result = j:result()
+              if return_val == 0 then
+                vim.schedule(function()
+                  telescope_builtin.live_grep({
+                    prompt_title = "Files changed since master",
+                    glob_pattern = "{" .. table.concat(result, ",") .. "}",
+                  })
+                end)
+              end
+            end,
+          }):sync()
+        end,
+        desc = "Search diff since master",
+      },
+      {
+        "<leader>gM",
+        function()
+          Job:new({
+            command = "git",
+            args = { "--no-pager", "diff", "--name-only", "main..", "--", "." },
+            on_exit = function(j, return_val)
+              local result = j:result()
+              if return_val == 0 then
+                vim.schedule(function()
+                  telescope_builtin.live_grep({
+                    prompt_title = "Files changed since main",
+                    glob_pattern = "{" .. table.concat(result, ",") .. "}",
+                  })
+                end)
+              end
+            end,
+          }):sync()
+        end,
+        desc = "Search diff since main",
+      },
+
       -- search
       { '<leader>s"', "<cmd>Telescope registers<cr>", desc = "Registers" },
       { "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
