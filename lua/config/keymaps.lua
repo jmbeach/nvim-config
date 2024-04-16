@@ -99,18 +99,6 @@ vim.keymap.set("n", "<leader>h", function()
   harpoon.ui:toggle_quick_menu(harpoon:list())
 end, { desc = "Open harpoon window" })
 
--- setup telescope
-vim.keymap.set("n", "<leader>/", telescope.extensions.live_grep_args.live_grep_args, { desc = "Find in Files" })
-vim.keymap.set("v", "<leader>/", telescope_builtin.grep_string, { desc = "Find Selection in Files" })
-vim.keymap.set("n", "<leader>fm", telescope_builtin.man_pages, { desc = "Find in man pages" })
-vim.keymap.set("n", "<leader>fc", telescope_builtin.command_history, { desc = "Find command history" })
-vim.keymap.set("n", "<leader>fk", telescope_builtin.keymaps, { desc = "Find keymap" })
-vim.keymap.set("n", "<leader>fj", telescope_builtin.jumplist, { desc = "Find jumplist" })
-vim.keymap.set("n", "<leader>cs", telescope_builtin.spell_suggest, { desc = "Spell suggest" })
-vim.keymap.set("n", "<leader>fs", telescope_builtin.lsp_workspace_symbols, { desc = "Find symbols" })
-vim.keymap.set("n", "<leader>fn", telescope.extensions.noice.noice, { desc = "Find notifications" })
-vim.keymap.set("n", "<leader>fh", telescope_builtin.highlights, { desc = "Find highlight colors" })
-
 -- general
 vim.keymap.set("v", "/", vim_helpers.search_visually_selected_text, { desc = "Visual search" })
 

@@ -1,4 +1,7 @@
 local Util = require("lazyvim.util")
+local telescope = require("telescope")
+local telescope_builtin = require("telescope.builtin")
+
 return {
   {
     "nvim-telescope/telescope.nvim",
@@ -15,6 +18,10 @@ return {
           end)
         end,
       },
+      -- Get grep args with telescope
+      {
+        "nvim-telescope/telescope-live-grep-args.nvim",
+      },
     },
     keys = {
       {
@@ -22,9 +29,15 @@ return {
         "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>",
         desc = "Switch Buffer",
       },
-      { "<leader>/", Util.telescope("live_grep"), desc = "Grep (root dir)" },
-      { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
+      {
+        "<leader>/",
+        ":lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>",
+        desc = "Grep (root dir)",
+      },
+      { "<leader>:", telescope_builtin.command_history, desc = "Command History" },
       { "<leader><space>", "<cmd>Telescope find_files<cr>", desc = "Find Files (root dir)" },
+      -- code
+      { "<leader>cs", telescope_builtin.spell_suggest, desc = "Colorscheme with preview" },
       -- find
       { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
       { "<leader>fc", Util.telescope.config_files(), desc = "Find Config File" },
@@ -40,14 +53,14 @@ return {
       { '<leader>s"', "<cmd>Telescope registers<cr>", desc = "Registers" },
       { "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
       { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
-      { "<leader>sc", "<cmd>Telescope command_history<cr>", desc = "Command History" },
+      { "<leader>sc", telescope_builtin.command_history, desc = "Command History" },
       { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
       { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
       { "<leader>sD", "<cmd>Telescope diagnostics<cr>", desc = "Workspace diagnostics" },
       { "<leader>sg", Util.telescope("live_grep"), desc = "Grep (root dir)" },
       { "<leader>sG", Util.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
       { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
-      { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
+      { "<leader>sj", telescope_builtin.jumplist, desc = "Search Jumplist" },
       { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
       { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
       { "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
@@ -55,9 +68,8 @@ return {
       { "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
       { "<leader>sw", Util.telescope("grep_string", { word_match = "-w" }), desc = "Word (root dir)" },
       { "<leader>sW", Util.telescope("grep_string", { cwd = false, word_match = "-w" }), desc = "Word (cwd)" },
-      { "<leader>sw", Util.telescope("grep_string"), mode = "v", desc = "Selection (root dir)" },
+      { "<leader>/", Util.telescope("grep_string"), mode = "v", desc = "Find Selection in Files (root dir)" },
       { "<leader>sW", Util.telescope("grep_string", { cwd = false }), mode = "v", desc = "Selection (cwd)" },
-      { "<leader>uC", Util.telescope("colorscheme", { enable_preview = true }), desc = "Colorscheme with preview" },
       {
         "<leader>ss",
         function()
@@ -76,6 +88,9 @@ return {
         end,
         desc = "Goto Symbol (Workspace)",
       },
+      -- ui
+      { "<leader>uC", Util.telescope("colorscheme", { enable_preview = true }), desc = "Colorscheme with preview" },
+      { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
     },
     opts = function()
       local actions = require("telescope.actions")
