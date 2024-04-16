@@ -28,7 +28,6 @@ return {
           { action = "ene | startinsert",                                                   desc = " New File",        icon = " ", key = "n" },
           { action = Util.telescope("oldfiles", { cwd = vim.loop.cwd() }),                  desc = " Recent Files",    icon = " ", key = "r" },
           { action = 'lua require("telescope").extensions.live_grep_args.live_grep_args()', desc = " Find Text",       icon = " ", key = "/" },
-          { action = [[lua LazyVim.telescope.config_files()()]],                            desc = " Config",          icon = " ", key = "c" },
           { action = 'lua require("persistence").load()',                                   desc = " Restore Session", icon = " ", key = "s" },
           { action = 'lua require("neogit").open()',                                        desc = " Open Neogit",     icon = " ", key = "g" },
           { action = "qa",                                                                  desc = " Quit",            icon = " ", key = "q" },
