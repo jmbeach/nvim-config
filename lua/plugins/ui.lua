@@ -13,6 +13,7 @@ return {
     end,
   },
   {
+    -- replaced with lualine at the top
     "akinsho/bufferline.nvim",
     disabled = true,
   },
