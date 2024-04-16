@@ -131,6 +131,18 @@ return {
             },
           },
         },
+        pickers = {
+          buffers = {
+            mappings = {
+              n = {
+                ["<c-d>"] = "delete_buffer",
+              },
+              i = {
+                ["<c-d>"] = "delete_buffer",
+              },
+            },
+          },
+        },
       }
     end,
   },
