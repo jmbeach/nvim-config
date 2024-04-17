@@ -1,6 +1,15 @@
+local is_shown = true
+local toggle = function()
+  is_shown = not is_shown
+  require("lualine").hide({ unhide = is_shown })
+end
 return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
+  init = function()
+    -- set to visible. Something is causing it to get hidden
+    require("lualine").hide({ unhide = true })
+  end,
   opts = function()
     -- PERF: we don't need this lualine require madness 🤷
     local lualine_require = require("lualine_require")
@@ -94,6 +103,7 @@ return {
       options = {
         theme = "auto",
         globalstatus = true,
+        disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
       },
       sections = {},
       inactive_sections = {},
@@ -101,4 +111,7 @@ return {
       extensions = { "neo-tree", "lazy" },
     }
   end,
+  keys = {
+    { "<leader>uS", toggle, desc = "Toggle status line" },
+  },
 }
