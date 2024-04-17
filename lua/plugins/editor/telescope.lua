@@ -1,6 +1,39 @@
 local Util = require("lazyvim.util")
 local telescope_builtin = require("telescope.builtin")
 local Job = require("plenary.job")
+local with_merge_base = function(main_branch, cb)
+  Job:new({
+    command = "git",
+    args = { "merge-base", main_branch, "HEAD" },
+    on_exit = function(j, return_val)
+      if return_val == 0 then
+        local result = table.concat(j:result(), "")
+        cb(result)
+      end
+    end,
+  }):sync()
+end
+local telescope_branch_changes = function(main_branch)
+  with_merge_base(main_branch, function(commit_hash)
+    vim.schedule(function()
+      Job:new({
+        command = "git",
+        args = { "--no-pager", "diff", "--name-only", commit_hash .. "..", "--", "." },
+        on_exit = function(j, return_val)
+          local result = j:result()
+          if return_val == 0 then
+            vim.schedule(function()
+              telescope_builtin.live_grep({
+                prompt_title = "Files changed since " .. main_branch,
+                glob_pattern = "{" .. table.concat(result, ",") .. "}",
+              })
+            end)
+          end
+        end,
+      }):sync()
+    end)
+  end)
+end
 
 return {
   {
@@ -52,42 +85,14 @@ return {
       {
         "<leader>gm",
         function()
-          Job:new({
-            command = "git",
-            args = { "--no-pager", "diff", "--name-only", "master..", "--", "." },
-            on_exit = function(j, return_val)
-              local result = j:result()
-              if return_val == 0 then
-                vim.schedule(function()
-                  telescope_builtin.live_grep({
-                    prompt_title = "Files changed since master",
-                    glob_pattern = "{" .. table.concat(result, ",") .. "}",
-                  })
-                end)
-              end
-            end,
-          }):sync()
+          telescope_branch_changes("master")
         end,
         desc = "Search diff since master",
       },
       {
         "<leader>gM",
         function()
-          Job:new({
-            command = "git",
-            args = { "--no-pager", "diff", "--name-only", "main..", "--", "." },
-            on_exit = function(j, return_val)
-              local result = j:result()
-              if return_val == 0 then
-                vim.schedule(function()
-                  telescope_builtin.live_grep({
-                    prompt_title = "Files changed since main",
-                    glob_pattern = "{" .. table.concat(result, ",") .. "}",
-                  })
-                end)
-              end
-            end,
-          }):sync()
+          telescope_branch_changes("main")
         end,
         desc = "Search diff since main",
       },
@@ -108,7 +113,6 @@ return {
       { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
       { "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
       { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
-      { "<leader>sr", "<cmd>Telescope resume<cr>", desc = "Resume" },
       { "<leader>sw", Util.telescope("grep_string", { word_match = "-w" }), desc = "Word (root dir)" },
       { "<leader>sW", Util.telescope("grep_string", { cwd = false, word_match = "-w" }), desc = "Word (cwd)" },
       { "<leader>/", Util.telescope("grep_string"), mode = "v", desc = "Find Selection in Files (root dir)" },

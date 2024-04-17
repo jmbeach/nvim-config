@@ -93,3 +93,8 @@ end
 vim.keymap.set("n", "<leader>e", open_oil, { desc = "Open file explorer" })
 
 vim.keymap.set("n", "<leader>xm", "<cmd>messages<cr>", { desc = "Messages" })
+
+vim.keymap.set("n", "<leader>sr", "<cmd>Telescope resume<cr>", { desc = "Resume" })
+vim.keymap.set("n", "<leader>sR", function()
+  require("spectre").open()
+end, { desc = "Replace in Files (Spectre)" })
