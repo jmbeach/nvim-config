@@ -36,6 +36,9 @@ local function prepare_results(list)
   for idx = 1, #list do
     list[idx].index = idx
     table.insert(next, list[idx])
+    if list[idx] == nil then
+      break
+    end
   end
 
   return next
