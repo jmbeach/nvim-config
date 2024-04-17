@@ -87,6 +87,7 @@ return {
       { "<leader>cs", telescope_builtin.spell_suggest, desc = "Colorscheme with preview" },
       -- find
       { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
+      { "<leader>bl", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "List buffers" },
       { "<leader>fc", Util.telescope.config_files(), desc = "Find Config File" },
       { "<leader>ff", Util.telescope("files"), desc = "Find Files (root dir)" },
       { "<leader>fF", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
