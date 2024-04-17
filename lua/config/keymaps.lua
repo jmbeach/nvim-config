@@ -36,6 +36,9 @@ if is_mac and is_tmux then
   -- Ctrl + - seems to be mapped to ctrl + _
   -- Overriding that to go back in jump list instead of opening terminal
   vim.keymap.set("n", "<C-_>", "<C-o>", { desc = "Go back in jump list" })
+  -- might be an alacritty thing. Ctrl + a is just getting interpretted as a
+  vim.keymap.set("n", "+", "<c-a>", { desc = "Increment number" })
+  vim.keymap.set("v", "g+", "g<c-a>", { desc = "Increment numbers" })
 end
 
 -- Map leader f p to print full file path
@@ -80,25 +83,6 @@ vim.keymap.set("n", "<leader>gb", "<Cmd>GitBlameToggle<CR>", { desc = "Git Blame
 -- use neogit instead of lazygit
 vim.keymap.set("n", "<leader>gg", neogit.open, { desc = "Neogit (root dir)" })
 
-local get_harpoon_function = function(index)
-  return function()
-    harpoon:list():select(index)
-  end
-end
--- harpoon keybindings
-vim.keymap.set("n", "<leader>1", get_harpoon_function(1), { desc = "Open harpoon window 1" })
-vim.keymap.set("n", "<leader>2", get_harpoon_function(2), { desc = "Open harpoon window 2" })
-vim.keymap.set("n", "<leader>3", get_harpoon_function(3), { desc = "Open harpoon window 3" })
-vim.keymap.set("n", "<leader>4", get_harpoon_function(4), { desc = "Open harpoon window 4" })
-vim.keymap.set("n", "<leader>5", get_harpoon_function(5), { desc = "Open harpoon window 5" })
-vim.keymap.set("n", "<leader>H", function()
-  harpoon:list():add()
-  vim.notify("󰆤 File Harpooned 󰆤", vim.log.levels.INFO, { title = "Harpoon", icon = "󰯇" })
-end, { desc = "Harpoon File" })
-vim.keymap.set("n", "<leader>h", function()
-  harpoon.ui:toggle_quick_menu(harpoon:list())
-end, { desc = "Open harpoon window" })
-
 -- general
 vim.keymap.set("v", "/", vim_helpers.search_visually_selected_text, { desc = "Visual search" })
 
@@ -107,3 +91,5 @@ local open_oil = function()
   oil.open()
 end
 vim.keymap.set("n", "<leader>e", open_oil, { desc = "Open file explorer" })
+
+vim.keymap.set("n", "<leader>xm", "<cmd>messages<cr>", { desc = "Messages" })

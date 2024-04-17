@@ -3,15 +3,6 @@ return {
   { "dstein64/nvim-scrollview" },
   -- makes background transparent
   { "xiyaowong/transparent.nvim" },
-  -- harpoon
-  {
-    "ThePrimeagen/harpoon",
-    branch = "harpoon2",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require("harpoon"):setup({})
-    end,
-  },
   {
     -- replaced with lualine at the top
     "akinsho/bufferline.nvim",
