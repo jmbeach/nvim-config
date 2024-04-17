@@ -8,30 +8,44 @@ local with_merge_base = function(main_branch, cb)
     on_exit = function(j, return_val)
       if return_val == 0 then
         local result = table.concat(j:result(), "")
-        cb(result)
+        vim.schedule(function()
+          cb(result)
+        end)
       end
     end,
   }):sync()
 end
-local telescope_branch_changes = function(main_branch)
+local with_branch_files = function(main_branch, cb)
   with_merge_base(main_branch, function(commit_hash)
-    vim.schedule(function()
-      Job:new({
-        command = "git",
-        args = { "--no-pager", "diff", "--name-only", commit_hash .. "..", "--", "." },
-        on_exit = function(j, return_val)
+    Job:new({
+      command = "git",
+      args = { "--no-pager", "diff", "--name-only", commit_hash .. "..", "--", "." },
+      on_exit = function(j, return_val)
+        if return_val == 0 then
           local result = j:result()
-          if return_val == 0 then
-            vim.schedule(function()
-              telescope_builtin.live_grep({
-                prompt_title = "Files changed since " .. main_branch,
-                glob_pattern = "{" .. table.concat(result, ",") .. "}",
-              })
-            end)
-          end
-        end,
-      }):sync()
-    end)
+          vim.schedule(function()
+            cb(result)
+          end)
+        end
+      end,
+    }):sync()
+  end)
+end
+local telescope_branch_changes = function(main_branch)
+  with_branch_files(main_branch, function(result)
+    telescope_builtin.live_grep({
+      prompt_title = "Files changed since " .. main_branch,
+      glob_pattern = "{" .. table.concat(result, ",") .. "}",
+    })
+  end)
+end
+
+local telescope_branch_files = function(main_branch)
+  with_branch_files(main_branch, function(result)
+    telescope_builtin.find_files({
+      prompt_title = "Files changed since " .. main_branch,
+      search_dirs = result,
+    })
   end)
 end
 
@@ -89,6 +103,21 @@ return {
         end,
         desc = "Search diff since master",
       },
+      {
+        "<leader>gf",
+        function()
+          telescope_branch_files("master")
+        end,
+        desc = "List changed files since master",
+      },
+      {
+        "<leader>gF",
+        function()
+          telescope_branch_files("main")
+        end,
+        desc = "List changed files since main",
+      },
+
       {
         "<leader>gM",
         function()

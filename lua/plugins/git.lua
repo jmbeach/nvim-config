@@ -1,4 +1,5 @@
 return {
+  { "jesseduffield/lazygit", enabled = false },
   { "f-person/git-blame.nvim" },
   {
     "NeogitOrg/neogit",

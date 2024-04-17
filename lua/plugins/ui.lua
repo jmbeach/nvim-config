@@ -6,6 +6,6 @@ return {
   {
     -- replaced with lualine at the top
     "akinsho/bufferline.nvim",
-    disabled = true,
+    enabled = false,
   },
 }
