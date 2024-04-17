@@ -5,6 +5,7 @@ local get_harpoon_function = function(index)
 end
 local select_harpoon_in_telescope = function()
   local index = require("telescope.actions.state").get_selected_entry().index
+  require("telescope.actions").close(vim.api.nvim_get_current_buf())
   require("harpoon"):list("my_marks"):select(index)
 end
 
@@ -101,6 +102,38 @@ local toggle_harpoon = function()
 end
 -- harpoon keybindings
 
+local get_existing_buffer = function(file)
+  local bufs = vim.api.nvim_list_bufs()
+  for _, buf in ipairs(bufs) do
+    if vim.api.nvim_buf_get_name(buf) == file then
+      return buf
+    end
+  end
+  return -1
+end
+
+local buf_is_marked = function(buf)
+  local my_marks = require("harpoon"):list("my_marks")
+  local name = vim.api.nvim_buf_get_name(buf)
+  local found = false
+  for _, mark in ipairs(my_marks.items) do
+    if mark.value.full_path == name then
+      found = true
+      break
+    end
+  end
+  return found
+end
+local close_all_except_marked = function()
+  local bufs = vim.api.nvim_list_bufs()
+  for _, buf in ipairs(bufs) do
+    local is_marked = buf_is_marked(buf)
+    if not is_marked then
+      vim.api.nvim_buf_delete(buf, { force = false })
+    end
+  end
+end
+
 return {
   "ThePrimeagen/harpoon",
   branch = "harpoon2",
@@ -109,12 +142,14 @@ return {
     require("harpoon"):setup({
       my_marks = {
         select = function(entry)
-          local existing = vim.fn.bufwinnr(entry.value.full_path)
+          -- check if the file is already open
+          local existing = get_existing_buffer(entry.value.full_path)
+          print(vim.inspect({ msg = "harpoon selected", existing = existing }))
           if existing ~= -1 then
-            vim.cmd(existing .. "wincmd w")
+            vim.api.nvim_set_current_buf(existing)
           else
             -- open a new buffer at the file
-            vim.vim.cmd("enew " .. entry.value.file)
+            vim.cmd("e " .. entry.value.full_path)
           end
           vim.fn.cursor({ entry.value.line, entry.value.column })
         end,
@@ -122,12 +157,13 @@ return {
     })
   end,
   keys = {
-    { "<leader>1", get_harpoon_function(1), { desc = "Open harpoon window 1" } },
-    { "<leader>2", get_harpoon_function(2), { desc = "Open harpoon window 2" } },
-    { "<leader>3", get_harpoon_function(3), { desc = "Open harpoon window 3" } },
-    { "<leader>4", get_harpoon_function(4), { desc = "Open harpoon window 4" } },
-    { "<leader>5", get_harpoon_function(5), { desc = "Open harpoon window 5" } },
-    { "<leader>H", harpoon_it, { desc = "Harpoon File" } },
-    { "<leader>h", toggle_harpoon, { desc = "Open harpoon window" } },
+    { "<leader>1", get_harpoon_function(1), desc = "Open harpoon window 1" },
+    { "<leader>2", get_harpoon_function(2), desc = "Open harpoon window 2" },
+    { "<leader>3", get_harpoon_function(3), desc = "Open harpoon window 3" },
+    { "<leader>4", get_harpoon_function(4), desc = "Open harpoon window 4" },
+    { "<leader>5", get_harpoon_function(5), desc = "Open harpoon window 5" },
+    { "<leader>H", harpoon_it, desc = "Harpoon File" },
+    { "<leader>h", toggle_harpoon, desc = "Open harpoon window" },
+    { "<leader>bx", close_all_except_marked, desc = "Close all but marked" },
   },
 }
