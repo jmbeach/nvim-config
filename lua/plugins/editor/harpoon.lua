@@ -14,11 +14,13 @@ local harpoon_it = function()
   local row = vim.fn.line(".")
   local col = vim.fn.col(".")
   local file = vim.fn.expand("%:.")
+  local full_path = vim.fn.expand("%:p")
   local result = {
     value = {
       file = file,
       line = row,
       column = col,
+      full_path = full_path,
     },
   }
   my_marks:add(result)
@@ -107,11 +109,12 @@ return {
     require("harpoon"):setup({
       my_marks = {
         select = function(entry)
-          local existing = vim.fn.bufwinnr(entry.value.file)
+          local existing = vim.fn.bufwinnr(entry.value.full_path)
           if existing ~= -1 then
             vim.cmd(existing .. "wincmd w")
           else
-            vim.cmd("e " .. entry.value.file)
+            -- open a new buffer at the file
+            vim.vim.cmd("enew " .. entry.value.file)
           end
           vim.fn.cursor({ entry.value.line, entry.value.column })
         end,
