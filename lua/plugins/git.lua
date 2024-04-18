@@ -14,6 +14,11 @@ return {
     config = true,
     opts = function(_, opts)
       opts.mappings = {
+        commit_editor = {
+          ["q"] = "Close",
+          ["<c-c><c-c>"] = "Submit",
+          ["<leader>A"] = "Abort",
+        },
         finder = {
           ["<cr>"] = "Select",
           ["<c-y>"] = "Select",
