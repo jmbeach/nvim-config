@@ -1,3 +1,8 @@
+-- Open oil on leader + e
+local open_oil = function()
+  require("oil").toggle_float()
+end
+
 return {
   "stevearc/oil.nvim",
   config = function()
@@ -34,4 +39,8 @@ return {
   end,
   -- Optional dependencies
   dependencies = { "nvim-tree/nvim-web-devicons" },
+  keys = {
+    -- Open oil on leader + e
+    { "<leader>e", open_oil, desc = "Open file explorer" },
+  },
 }

@@ -3,10 +3,6 @@
 -- Add any additional keymaps here
 
 local neogit = require("neogit")
-local harpoon = require("harpoon")
-local oil = require("oil")
-local telescope = require("telescope")
-local telescope_builtin = require("telescope.builtin")
 local scroll = require("neoscroll")
 local vim_helpers = require("../util/vim_helpers")
 
@@ -85,16 +81,16 @@ vim.keymap.set("n", "<leader>gg", neogit.open, { desc = "Neogit (root dir)" })
 
 -- general
 vim.keymap.set("v", "/", vim_helpers.search_visually_selected_text, { desc = "Visual search" })
-
--- Open oil on leader + e
-local open_oil = function()
-  oil.open()
-end
-vim.keymap.set("n", "<leader>e", open_oil, { desc = "Open file explorer" })
-
 vim.keymap.set("n", "<leader>xm", "<cmd>messages<cr>", { desc = "Messages" })
 
 vim.keymap.set("n", "<leader>sr", "<cmd>Telescope resume<cr>", { desc = "Resume" })
 vim.keymap.set("n", "<leader>sR", function()
   require("spectre").open()
 end, { desc = "Replace in Files (Spectre)" })
+
+vim.keymap.set(
+  "n",
+  "<leader>sC",
+  ":lua require('telescope').extensions.neoclip.default()<cr>",
+  { desc = "Search Clipboard history" }
+)
