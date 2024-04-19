@@ -4,7 +4,7 @@
 
 local neogit = require("neogit")
 local scroll = require("neoscroll")
-local vim_helpers = require("../util/vim_helpers")
+local util_vim_buffer = require("util.vim.buffer")
 
 -- Smooth scrolling on page up and down
 local scroll_down = function()
@@ -80,7 +80,7 @@ vim.keymap.set("n", "<leader>gb", "<Cmd>GitBlameToggle<CR>", { desc = "Git Blame
 vim.keymap.set("n", "<leader>gg", neogit.open, { desc = "Neogit (root dir)" })
 
 -- general
-vim.keymap.set("v", "/", vim_helpers.search_visually_selected_text, { desc = "Visual search" })
+vim.keymap.set("v", "/", util_vim_buffer.search_visually_selected_text, { desc = "Visual search" })
 vim.keymap.set("n", "<leader>xm", "<cmd>messages<cr>", { desc = "Messages" })
 
 vim.keymap.set("n", "<leader>sr", "<cmd>Telescope resume<cr>", { desc = "Resume" })
@@ -94,3 +94,6 @@ vim.keymap.set(
   ":lua require('telescope').extensions.neoclip.default()<cr>",
   { desc = "Search Clipboard history" }
 )
+
+-- close all other buffers with <leader>bX
+vim.keymap.set("n", "<leader>bX", util_vim_buffer.close_all_but_open_buffer, { desc = "Close all but open" })

@@ -1,8 +1,12 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
+local this_dir = vim.fn.stdpath("config")
+package.path = package.path .. ";" .. this_dir .. "/lua"
+
 require("config.lazy")
-dofile(vim.fn.stdpath("config") .. "/lua/config/coding.lua")
-dofile(vim.fn.stdpath("config") .. "/lua/config/ui.lua")
-dofile(vim.fn.stdpath("config") .. "/lua/config/syntax-highlighting.lua")
-dofile(vim.fn.stdpath("config") .. "/lua/config/file-associations.lua")
-dofile(vim.fn.stdpath("config") .. "/lua/config/writing.lua")
-dofile(vim.fn.stdpath("config") .. "/../private-nvim/init.lua")
+require("util.init")
+dofile(this_dir .. "/lua/config/coding.lua")
+dofile(this_dir .. "/lua/config/ui.lua")
+dofile(this_dir .. "/lua/config/syntax-highlighting.lua")
+dofile(this_dir .. "/lua/config/file-associations.lua")
+dofile(this_dir .. "/lua/config/writing.lua")
+dofile(this_dir .. "/../private-nvim/init.lua")
