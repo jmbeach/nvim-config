@@ -1,10 +1,14 @@
 local is_shown = true
+
 local toggle = function()
   is_shown = not is_shown
   require("lualine").hide({ unhide = is_shown })
 end
 return {
   "nvim-lualine/lualine.nvim",
+  dependencies = {
+    { "RRethy/nvim-base16" },
+  },
   event = "VeryLazy",
   init = function()
     -- set to visible. Something is causing it to get hidden
@@ -35,12 +39,11 @@ return {
             hint = icons.diagnostics.Hint,
           },
         },
-        { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
         {
           "buffers",
           buffers_color = {
-            active = LazyVim.ui.fg("Special"),
-            inactive = LazyVim.ui.fg("Comment"),
+            active = "lualine_a_insert",
+            inactive = "lualine_c_inactive",
           },
           symbols = {
             alternate_file = " ",
@@ -48,24 +51,24 @@ return {
         },
       },
       lualine_x = {
-          -- stylua: ignore
-          {
-            function() return require("noice").api.status.command.get() end,
-            cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
-            color = LazyVim.ui.fg("Statement"),
-          },
-          -- stylua: ignore
-          {
-            function() return require("noice").api.status.mode.get() end,
-            cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
-            color = LazyVim.ui.fg("Constant"),
-          },
-          -- stylua: ignore
-          {
-            function() return "  " .. require("dap").status() end,
-            cond = function () return package.loaded["dap"] and require("dap").status() ~= "" end,
-            color = LazyVim.ui.fg("Debug"),
-          },
+        -- stylua: ignore
+        {
+          function() return require("noice").api.status.command.get() end,
+          cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
+          color = LazyVim.ui.fg("Statement"),
+        },
+        -- stylua: ignore
+        {
+          function() return require("noice").api.status.mode.get() end,
+          cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
+          color = LazyVim.ui.fg("Constant"),
+        },
+        -- stylua: ignore
+        {
+          function() return "  " .. require("dap").status() end,
+          cond = function () return package.loaded["dap"] and require("dap").status() ~= "" end,
+          color = LazyVim.ui.fg("Debug"),
+        },
         {
           require("lazy.status").updates,
           cond = require("lazy.status").has_updates,
@@ -100,9 +103,11 @@ return {
     }
     return {
       options = {
-        theme = "auto",
+        theme = "base16",
         globalstatus = true,
         disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
+        section_separators = { left = "█", right = "█" },
+        component_separators = { left = " | ", right = " | " },
       },
       sections = {},
       inactive_sections = {},

@@ -1,18 +1,11 @@
 return {
-  -- add gruvbox
-  { "ellisonleao/gruvbox.nvim" },
-
-  -- add monokai
-  { "tanvirtin/monokai.nvim" },
-
-  -- add darcula
-  { "doums/darcula" },
+  { "RRethy/nvim-base16" },
 
   -- Configure LazyVim to load darcula
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "darcula",
+      colorscheme = "base16-materia",
     },
   },
 }
