@@ -103,7 +103,7 @@ return {
     }
     return {
       options = {
-        theme = "base16",
+        theme = "everforest",
         globalstatus = true,
         disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
         section_separators = { left = "█", right = "█" },
