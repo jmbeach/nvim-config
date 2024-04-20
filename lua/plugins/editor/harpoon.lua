@@ -144,7 +144,6 @@ return {
         select = function(entry)
           -- check if the file is already open
           local existing = get_existing_buffer(entry.value.full_path)
-          print(vim.inspect({ msg = "harpoon selected", existing = existing }))
           if existing ~= -1 then
             vim.api.nvim_set_current_buf(existing)
           else
