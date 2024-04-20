@@ -3,7 +3,6 @@
 -- Add any additional keymaps here
 
 local neogit = require("neogit")
-local scroll = require("neoscroll")
 local util_vim_buffer = require("util.vim.buffer")
 
 local is_mac = vim.loop.os_uname().sysname == "Darwin"
@@ -11,18 +10,9 @@ local is_tmux = os.getenv("TMUX") ~= nil
 
 local map = vim.keymap.set
 
--- Smooth scrolling on page up and down
-local scroll_down = function()
-  ---@diagnostic disable-next-line: missing-parameter
-  scroll.scroll(vim.wo.scroll, true, 350)
-end
-local scroll_up = function()
-  ---@diagnostic disable-next-line: missing-parameter
-  scroll.scroll(-vim.wo.scroll, true, 350)
-end
-
-map("n", "<C-u>", scroll_up, { desc = "Half page up" })
-map("n", "<C-d>", scroll_down, { desc = "Half page down" })
+-- Keep cursor centered when paging up and down
+map("n", "<C-u>", "<C-u>zz", { desc = "Half page up" })
+map("n", "<C-d>", "<C-d>zz", { desc = "Half page down" })
 
 -- Add a mapping to make alt + / open and hide the terminal
 local Util = require("lazyvim.util")
