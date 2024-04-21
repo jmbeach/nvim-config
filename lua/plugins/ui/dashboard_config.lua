@@ -1,4 +1,7 @@
 local Util = require("lazyvim.util")
+local open_oil = function()
+  require("oil").toggle_float()
+end
 return {
   "nvimdev/dashboard-nvim",
   event = "VimEnter",
@@ -25,6 +28,7 @@ return {
         -- stylua: ignore
         center = {
           { action = LazyVim.telescope("files"),                                            desc = " Find File",       icon = " ", key = "f" },
+          { action = open_oil,                                                              desc = " Browse files",    icon = "󰙅 ", key = "e" },
           { action = "ene | startinsert",                                                   desc = " New File",        icon = " ", key = "n" },
           { action = Util.telescope("oldfiles", { cwd = vim.loop.cwd() }),                  desc = " Recent Files",    icon = " ", key = "r" },
           { action = 'lua require("telescope").extensions.live_grep_args.live_grep_args()', desc = " Find Text",       icon = " ", key = "/" },
