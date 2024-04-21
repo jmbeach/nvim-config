@@ -10,7 +10,7 @@ return {
       keys = {
         telescope = {
           i = {
-            select = "<c-y>",
+            select = { "<c-y>", "<cr>" },
             paste = "<c-v>",
             paste_behind = "<c-k>",
             replay = "<c-q>", -- replay a macro
@@ -19,7 +19,7 @@ return {
             custom = {},
           },
           n = {
-            select = "<c-y>",
+            select = { "<c-y>", "<cr>" },
             paste = "p",
             --- It is possible to map to more than one key.
             -- paste = { 'p', '<c-p>' },
