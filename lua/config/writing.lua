@@ -12,6 +12,7 @@ vim.api.nvim_create_autocmd("User", {
   callback = function()
     vim.cmd("Limelight")
     require("lualine").hide()
+    vim.cmd("GitBlameDisable")
   end,
 })
 
@@ -20,5 +21,6 @@ vim.api.nvim_create_autocmd("User", {
   callback = function()
     vim.cmd("Limelight!")
     require("lualine").hide({ unhide = true })
+    vim.cmd("GitBlameEnable")
   end,
 })
