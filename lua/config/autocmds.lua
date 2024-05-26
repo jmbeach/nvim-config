@@ -11,3 +11,22 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.opt_local.linebreak = true
   end,
 })
+
+-- Goyo stuff
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'GoyoEnter',
+  callback = function()
+    vim.cmd 'Limelight'
+    require('lualine').hide()
+    vim.cmd 'GitBlameDisable'
+  end,
+})
+
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'GoyoLeave',
+  callback = function()
+    vim.cmd 'Limelight!'
+    require('lualine').hide { unhide = true }
+    vim.cmd 'GitBlameEnable'
+  end,
+})

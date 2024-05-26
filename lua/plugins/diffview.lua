@@ -12,7 +12,7 @@ return {
   end,
   keys = function(_, keys)
     return vim.list_extend({
-      { 'n', '<leader>gd', '<Cmd>DiffviewOpen<CR>', { desc = 'Open diffview' } },
+      { '<leader>gd', '<Cmd>DiffviewOpen<CR>', { desc = 'Open diffview' } },
     }, keys)
   end,
 }

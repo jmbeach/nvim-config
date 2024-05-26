@@ -394,5 +394,6 @@ require('lazy').setup({
   },
 })
 
+require 'config.config'
 require 'config.keymaps'
 require 'config.autocmds'
