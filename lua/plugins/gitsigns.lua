@@ -5,7 +5,18 @@
 return {
   {
     'lewis6991/gitsigns.nvim',
+    -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
+    --    require('gitsigns').setup({ ... })
+    --
+    -- See `:help gitsigns` to understand what the configuration keys do
     opts = {
+      signs = {
+        add = { text = '+' },
+        change = { text = '~' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
+      },
       on_attach = function(bufnr)
         local gitsigns = require 'gitsigns'
 
