@@ -23,6 +23,11 @@ return { -- Autoformat
         lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
       }
     end,
+    formatters = {
+      shfmt = {
+        prepend_args = { '-i', '4' },
+      },
+    },
     formatters_by_ft = {
       lua = { 'stylua' },
       yaml = { 'prettierd' },
@@ -32,7 +37,12 @@ return { -- Autoformat
       -- You can use a sub-list to tell conform to run *until* a formatter
       -- is found.
       javascript = { 'prettierd' },
+      json = { 'prettierd' },
       svelte = { 'prettierd' },
+      python = { 'prettierd' },
+      sh = {
+        'shfmt',
+      },
     },
   },
 }

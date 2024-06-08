@@ -31,4 +31,5 @@ if is_mac and is_tmux then
 end
 
 -- map leader b d to buffer delete
-map('n', '<leader>bd', '<cmd>bd<cr>', { desc = 'Buffer delete' })
+map('n', '<leader>bd', '<cmd>bd<cr>', { desc = 'Buffer [d]elete' })
+map('n', '<leader>bx', '<cmd>%bd|e#<cr>', { desc = 'Buffer e[x]it all but current' })

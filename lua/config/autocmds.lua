@@ -15,6 +15,7 @@ vim.api.nvim_create_autocmd('FileType', {
 -- Goyo stuff
 vim.api.nvim_create_autocmd('User', {
   pattern = 'GoyoEnter',
+  group = augroup 'zen',
   callback = function()
     vim.cmd 'Limelight'
     require('lualine').hide()
@@ -24,9 +25,25 @@ vim.api.nvim_create_autocmd('User', {
 
 vim.api.nvim_create_autocmd('User', {
   pattern = 'GoyoLeave',
+  group = augroup 'zen',
   callback = function()
     vim.cmd 'Limelight!'
     require('lualine').hide { unhide = true }
     vim.cmd 'GitBlameEnable'
   end,
 })
+
+local fileTypes = {
+  ['*.ah2'] = 'autohotkey',
+  ['*.log'] = 'log',
+}
+
+for extension, filetype in pairs(fileTypes) do
+  vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile', 'FileType' }, {
+    pattern = { extension },
+    group = augroup 'filetypes',
+    callback = function()
+      vim.bo.filetype = filetype
+    end,
+  })
+end
