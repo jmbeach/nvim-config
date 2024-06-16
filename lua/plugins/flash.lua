@@ -1,11 +1,11 @@
 return {
-  "folke/flash.nvim",
-  event = "VeryLazy",
+  'folke/flash.nvim',
+  event = 'VeryLazy',
   vscode = true,
   ---@type Flash.Config
   opts = {
     search = {
-      mode = "exact",
+      mode = 'exact',
     },
     label = {
       rainbow = {
