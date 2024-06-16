@@ -335,6 +335,9 @@ require('lazy').setup({
       lazy = '💤 ',
     },
   },
+  change_detection = {
+    enabled = false,
+  },
 })
 
 require 'config.config'
