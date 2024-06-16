@@ -8,6 +8,19 @@ local inlay_hints_settings = {
   includeInlayVariableTypeHints = false,
   includeInlayVariableTypeHintsWhenTypeMatchesName = false,
 }
+
+local function helper_on_attach(on_attach, name)
+  return vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+      local buffer = args.buf ---@type number
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      if client and (not name or client.name == name) then
+        return on_attach(client, buffer)
+      end
+    end,
+  })
+end
+
 return { -- LSP Configuration & Plugins
   'neovim/nvim-lspconfig',
   dependencies = {
@@ -236,6 +249,9 @@ return { -- LSP Configuration & Plugins
         enabled = true,
       },
       ruff = {
+        enabled = false,
+      },
+      ruff_lsp = {
         enabled = true,
         keys = {
           {
@@ -284,4 +300,12 @@ return { -- LSP Configuration & Plugins
       },
     }
   end,
+  setup = {
+    ruff_lsp = function()
+      helper_on_attach(function(client, _)
+        -- Disable hover in favor of Pyright
+        client.server_capabilities.hoverProvider = false
+      end, 'ruff_lsp')
+    end,
+  },
 }
