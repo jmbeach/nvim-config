@@ -43,7 +43,7 @@ for extension, filetype in pairs(fileTypes) do
     pattern = { extension },
     group = augroup 'filetypes',
     callback = function()
-      vim.bo.filetype = filetype
+      vim.cmd.setfiletype(filetype)
     end,
   })
 end
