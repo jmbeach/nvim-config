@@ -65,7 +65,12 @@ return { -- Fuzzy Finder (files, lsp, etc)
       --  All the info you're looking for is in `:help telescope.setup()`
       --
       defaults = {
-        path_display = { 'shorten' },
+        layout_strategy = 'vertical',
+        layout_config = {
+          prompt_position = 'top',
+          mirror = 'true',
+          preview_cutoff = 0,
+        },
         mappings = {
           i = {
             ['<a-i>'] = find_files_no_ignore,
