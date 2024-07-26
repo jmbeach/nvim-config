@@ -33,3 +33,6 @@ end
 -- map leader b d to buffer delete
 map('n', '<leader>bd', '<cmd>bd<cr>', { desc = 'Buffer [d]elete' })
 map('n', '<leader>bx', '<cmd>%bd|e#<cr>', { desc = 'Buffer e[x]it all but current' })
+
+-- map leader tab tab to next tab
+map('n', '<leader><tab><tab>', '<cmd>tabnext<cr>', { desc = '<Tab> [t]o next' })
