@@ -3,10 +3,10 @@ return {
   opts = function(_, opts)
     opts.keymaps = {
       view = {
-        { 'n', 'q', '<Cmd>DiffviewClose<CR>', { desc = 'Close diffview' } },
+        { 'n', '<leader>gq', '<Cmd>DiffviewClose<CR>', { desc = 'Close diffview' } },
       },
       file_panel = {
-        { 'n', 'q', '<Cmd>DiffviewClose<CR>', { desc = 'Close diffview' } },
+        { 'n', '<leader>gq', '<Cmd>DiffviewClose<CR>', { desc = 'Close diffview' } },
       },
     }
   end,
