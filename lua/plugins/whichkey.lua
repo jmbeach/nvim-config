@@ -4,6 +4,7 @@ return { -- Useful plugin to show you pending keybinds.
   config = function() -- This is the function that runs, AFTER loading
     -- Document existing key chains
     local wk = require 'which-key'
+    wk.add { '<leader><Tab>', group = '[<Tab>]' }
     wk.add { '<leader>b', group = '[B]uffer' }
     wk.add { '<leader>c', group = '[C]ode' }
     wk.add { '<leader>d', group = '[D]ocument' }
