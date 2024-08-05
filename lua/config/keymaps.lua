@@ -36,3 +36,15 @@ map('n', '<leader>bx', '<cmd>%bd|e#<cr>', { desc = 'Buffer e[x]it all but curren
 
 -- map leader tab tab to next tab
 map('n', '<leader><tab><tab>', '<cmd>tabnext<cr>', { desc = '<Tab> [t]o next' })
+map('n', '<leader><tab>x', '<cmd>tabclose<cr>', { desc = '<Tab> E[x]it' })
+map('n', '<leader><tab>n', '<cmd>tabnew<cr>', { desc = '<Tab> [N]ew' })
+map('n', '<tab><tab>', '<cmd>tabnext<cr>', { desc = '<Tab> [t]o next' })
+map('n', '<tab>x', '<cmd>tabclose<cr>', { desc = '<Tab> E[x]it' })
+map('n', '<tab>n', '<cmd>tabnew<cr>', { desc = '<Tab> [N]ew' })
+
+-- Map leader u d to diff this
+map('n', '<leader>ud', '<cmd>windo diffthis<cr>', { desc = '[D]iff this' })
+map('n', '<leader>uD', '<cmd>windo diffoff<cr>', { desc = '[D]iff off' })
+
+-- Map leader U to undo tree
+map('n', '<leader>U', '<cmd>UndotreeToggle<cr>', { desc = 'Undo tree' })
