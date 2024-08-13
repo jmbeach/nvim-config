@@ -42,7 +42,7 @@ return { -- Autoformat
       javascript = { 'prettierd' },
       json = { 'prettierd' },
       svelte = { 'prettierd' },
-      python = { 'prettierd' },
+      python = { 'flake8' },
       sh = {
         'shfmt',
       },
