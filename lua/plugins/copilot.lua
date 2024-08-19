@@ -1,3 +1,4 @@
+local copilot_enabled = true
 return {
   {
     'github/copilot.vim',
@@ -8,6 +9,21 @@ return {
       })
       vim.g.copilot_no_tab_map = true
     end,
+    keys = {
+      {
+        '<leader>tc',
+        function()
+          if copilot_enabled then
+            vim.cmd 'Copilot enable'
+          else
+            vim.cmd 'Copilot disable'
+          end
+          copilot_enabled = not copilot_enabled
+        end,
+        mode = 'n',
+        desc = 'Toggle Copilot',
+      },
+    },
   },
   {
     'CopilotC-Nvim/CopilotChat.nvim',
@@ -28,7 +44,7 @@ return {
     -- See Commands section for default commands if you want to lazy load on them
     keys = {
       {
-        '<leader>tc',
+        '<leader>tC',
         function()
           require('CopilotChat').toggle()
         end,
