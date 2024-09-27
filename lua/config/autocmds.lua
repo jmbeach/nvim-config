@@ -3,7 +3,7 @@ local function augroup(name)
 end
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'text', 'gitcommit', 'markdown' },
+  pattern = { 'text', 'gitcommit', 'markdown', 'help' },
   group = augroup 'text_settings',
   callback = function()
     vim.opt_local.wrap = true

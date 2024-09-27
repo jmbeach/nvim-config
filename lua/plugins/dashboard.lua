@@ -27,13 +27,13 @@ return {
         header = vim.split(logo, '\n'),
         -- stylua: ignore
         center = {
-          { action = telescope_builtins.find_files,                                          desc = " Find File",       icon = " ", key = "f" },
+          { action = telescope_builtins.find_files,                                         desc = " Find File",       icon = " ", key = "f" },
           { action = open_oil,                                                              desc = " Browse files",    icon = "󰙅 ", key = "e" },
           { action = "ene | startinsert",                                                   desc = " New File",        icon = " ", key = "n" },
-          { action = function() telescope_builtins.oldfiles({ cwd = vim.loop.cwd() }) end, desc = " Recent Files",    icon = " ", key = "r" },
+          { action = function() telescope_builtins.oldfiles({ cwd = vim.loop.cwd() }) end,  desc = " Recent Files",    icon = " ", key = "r" },
           { action = 'lua require("telescope").extensions.live_grep_args.live_grep_args()', desc = " Find Text",       icon = " ", key = "/" },
           { action = 'lua require("persistence").load()',                                   desc = " Restore Session", icon = " ", key = "s" },
-          { action = 'lua require("neogit").open()',                                        desc = " Open Neogit",     icon = " ", key = "g" },
+          { action = 'tab G',                                                               desc = " Open Neogit",     icon = " ", key = "g" },
           { action = "qa",                                                                  desc = " Quit",            icon = " ", key = "q" },
         },
         footer = function()

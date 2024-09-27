@@ -9,6 +9,7 @@ return {
       })
       vim.g.copilot_no_tab_map = true
     end,
+    lazy = false,
     keys = {
       {
         '<leader>tc',
@@ -32,6 +33,7 @@ return {
       { 'github/copilot.vim' },
       { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper
     },
+    lazy = false,
     opts = {
       debug = true, -- Enable debugging
       -- See Configuration section for rest

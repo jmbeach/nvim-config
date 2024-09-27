@@ -43,6 +43,7 @@ return { -- Autoformat
       json = { 'prettierd' },
       svelte = { 'prettierd' },
       python = { 'flake8' },
+      terraform = { 'terraform_fmt' },
       sh = {
         'shfmt',
       },
