@@ -4,6 +4,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
   branch = '0.1.x',
   dependencies = {
     'nvim-lua/plenary.nvim',
+    { 'rafi/telescope-thesaurus.nvim' },
     { -- If encountering errors, see telescope-fzf-native README for installation instructions
       'nvim-telescope/telescope-fzf-native.nvim',
 
@@ -65,12 +66,6 @@ return { -- Fuzzy Finder (files, lsp, etc)
       --  All the info you're looking for is in `:help telescope.setup()`
       --
       defaults = {
-        layout_strategy = 'vertical',
-        layout_config = {
-          prompt_position = 'top',
-          mirror = 'true',
-          preview_cutoff = 0,
-        },
         mappings = {
           i = {
             ['<a-i>'] = find_files_no_ignore,
@@ -81,6 +76,8 @@ return { -- Fuzzy Finder (files, lsp, etc)
       },
       pickers = {
         buffers = {
+          layout_strategy = 'vertical',
+          layout_config = { mirror = 'true', prompt_position = 'top', preview_cutoff = 0 },
           mappings = {
             n = {
               ['<c-d>'] = 'delete_buffer',
@@ -90,10 +87,22 @@ return { -- Fuzzy Finder (files, lsp, etc)
             },
           },
         },
+        find_files = {
+          layout_strategy = 'vertical',
+          layout_config = { mirror = 'true', prompt_position = 'top', preview_cutoff = 0 },
+        },
+        live_grep = {
+          layout_strategy = 'vertical',
+          layout_config = { mirror = 'true', prompt_position = 'top', preview_cutoff = 0 },
+        },
       },
       extensions = {
         ['ui-select'] = {
           require('telescope.themes').get_dropdown(),
+        },
+        live_grep_args = {
+          layout_strategy = 'vertical',
+          layout_config = { mirror = 'true', prompt_position = 'top', preview_cutoff = 0 },
         },
       },
     }
@@ -113,6 +122,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
     vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
     vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+    vim.keymap.set('n', '<leader>st', '<cmd>Telescope thesaurus lookup<CR>', { desc = '[S]earch [T]hesaurus' })
     vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
     -- Slightly advanced example of overriding default behavior and theme

@@ -22,7 +22,7 @@ return { -- Autoformat
       end
       local disable_filetypes = { c = true, cpp = true }
       return {
-        timeout_ms = 500,
+        timeout_ms = 1000,
         lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
       }
     end,
@@ -34,6 +34,7 @@ return { -- Autoformat
     formatters_by_ft = {
       lua = { 'stylua' },
       yaml = { 'prettierd' },
+      astro = { 'prettierd' },
       -- Conform can also run multiple formatters sequentially
       -- python = { "isort", "black" },
       --
