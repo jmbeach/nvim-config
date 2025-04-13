@@ -22,7 +22,7 @@ return { -- Autoformat
       end
       local disable_filetypes = { c = true, cpp = true }
       return {
-        timeout_ms = 1000,
+        timeout_ms = 5000,
         lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
       }
     end,
@@ -32,6 +32,7 @@ return { -- Autoformat
       },
     },
     formatters_by_ft = {
+      html = { 'prettierd' },
       lua = { 'stylua' },
       yaml = { 'prettierd' },
       astro = { 'prettierd' },
