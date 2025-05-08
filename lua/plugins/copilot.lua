@@ -40,6 +40,7 @@ return {
       mappings = {
         close = {
           normal = 'q',
+          insert = '<C-S-c>',
         },
       },
     },

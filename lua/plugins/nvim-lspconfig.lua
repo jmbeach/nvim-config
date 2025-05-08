@@ -1,35 +1,3 @@
-local inlay_hints_settings = {
-  includeInlayEnumMemberValueHints = true,
-  includeInlayFunctionLikeReturnTypeHints = true,
-  includeInlayFunctionParameterTypeHints = true,
-  includeInlayParameterNameHints = 'literal',
-  includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-  includeInlayPropertyDeclarationTypeHints = true,
-  includeInlayVariableTypeHints = false,
-  includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-}
-
-local function helper_on_attach(on_attach, name)
-  return vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(args)
-      local buffer = args.buf ---@type number
-      local client = vim.lsp.get_client_by_id(args.data.client_id)
-      if client and (not name or client.name == name) then
-        return on_attach(client, buffer)
-      end
-    end,
-  })
-end
-
-local function quickfix()
-  vim.lsp.buf.code_action {
-    filter = function(a)
-      return a.isPreferred
-    end,
-    apply = true,
-  }
-end
-
 return { -- LSP Configuration & Plugins
   'neovim/nvim-lspconfig',
   dependencies = {
@@ -195,9 +163,9 @@ return { -- LSP Configuration & Plugins
       -- Some languages (like typescript) have entire language plugins that can be useful:
       --    https://github.com/pmizio/typescript-tools.nvim
       --
-      -- But for many setups, the LSP (`tsserver`) will work just fine
-      -- tsserver = {},
       --
+      -- But for many setups, the LSP (`ts_ls`) will work just fine
+      ts_ls = {},
 
       lua_ls = {
         -- cmd = {...},
@@ -218,24 +186,6 @@ return { -- LSP Configuration & Plugins
       },
       ruff = {
         enabled = false,
-      },
-      ruff_lsp = {
-        enabled = true,
-        keys = {
-          {
-            '<leader>co',
-            function()
-              vim.lsp.buf.code_action {
-                apply = true,
-                context = {
-                  only = { 'source.organizeImports' },
-                  diagnostics = {},
-                },
-              }
-            end,
-            desc = 'Organize Imports',
-          },
-        },
       },
     }
 
@@ -268,12 +218,4 @@ return { -- LSP Configuration & Plugins
       },
     }
   end,
-  setup = {
-    ruff_lsp = function()
-      helper_on_attach(function(client, _)
-        -- Disable hover in favor of Pyright
-        client.server_capabilities.hoverProvider = false
-      end, 'ruff_lsp')
-    end,
-  },
 }
