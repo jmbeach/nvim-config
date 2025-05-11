@@ -2,6 +2,17 @@ local function augroup(name)
   return vim.api.nvim_create_augroup('mine_' .. name, { clear = true })
 end
 
+-- Help file settings
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'help',
+  group = augroup 'help_settings',
+  callback = function()
+    -- Set the help window to be on the left side
+    vim.cmd 'wincmd H'
+  end,
+})
+
+-- Text file settings
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'text', 'gitcommit', 'markdown', 'help' },
   group = augroup 'text_settings',
@@ -35,6 +46,7 @@ vim.api.nvim_create_autocmd('User', {
   end,
 })
 
+-- Set filetype for specific file extensions
 local fileTypes = {
   ['*.ah2'] = 'autohotkey',
   ['*.log'] = 'log',
