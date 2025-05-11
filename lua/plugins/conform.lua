@@ -44,7 +44,7 @@ return { -- Autoformat
       javascript = { 'prettierd' },
       json = { 'prettierd' },
       svelte = { 'prettierd' },
-      python = { 'flake8' },
+      python = { 'ruff_format' },
       terraform = { 'terraform_fmt' },
       sh = {
         'shfmt',
