@@ -7,8 +7,12 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = 'help',
   group = augroup 'help_settings',
   callback = function()
-    -- Set the help window to be on the left side
-    vim.cmd 'wincmd H'
+    -- Set the help window to be on the left side after a brief delay
+    vim.defer_fn(function()
+      if vim.fn.winnr '$' > 1 then
+        vim.cmd 'wincmd H'
+      end
+    end, 100)
   end,
 })
 

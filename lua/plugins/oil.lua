@@ -1,10 +1,17 @@
 -- Open oil on leader + e
 local open_oil = function()
-  require('oil').toggle_float()
+  vim.cmd 'vsplit | wincmd h | vertical resize 50'
+  require('oil').open()
 end
 
-local open_oil_cwd = function()
-  require('oil').toggle_float()
+local select = function()
+  entry = require('oil').get_cursor_entry()
+  require('oil').select()
+  -- Close the oil window if the selecttion is not a directory
+  -- and more than one window is open
+  if entry and entry.type == 'file' and vim.fn.winnr '$' > 1 then
+    vim.cmd 'close'
+  end
 end
 
 return {
@@ -14,13 +21,13 @@ return {
     require('oil').setup {
       keymaps = {
         ['g?'] = 'actions.show_help',
-        ['<C-y>'] = 'actions.select',
         ['<C-s>'] = 'actions.select_vsplit',
+        ['<CR>'] = select,
+        ['<C-y'] = select,
         ['<C-h>'] = 'actions.select_split',
         ['<C-t>'] = 'actions.select_tab',
         ['<C-p>'] = 'actions.preview',
         ['<C-c>'] = 'actions.close',
-        ['<C-l>'] = 'actions.refresh',
         ['-'] = 'actions.parent',
         ['_'] = 'actions.open_cwd',
         ['`'] = 'actions.cd',
