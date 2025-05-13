@@ -17,15 +17,26 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- Text file settings
+local function set_text_opts()
+  vim.opt_local.wrap = true
+  vim.opt_local.spell = true
+  vim.opt_local.linebreak = true
+  vim.keymap.set('n', 'j', 'gj', { buffer = true })
+  vim.keymap.set('n', 'k', 'gk', { buffer = true })
+  -- add margins
+  vim.opt_local.foldcolumn = '8'
+  if #vim.api.nvim_list_wins() > 1 then
+    vim.opt_local.columns = 200
+    vim.cmd 'wincmd =' -- make splits equal size
+  else
+    vim.opt_local.columns = 100
+  end
+end
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'text', 'gitcommit', 'markdown', 'help' },
   group = augroup 'text_settings',
   callback = function()
-    vim.opt_local.wrap = true
-    vim.opt_local.spell = true
-    vim.opt_local.linebreak = true
-    vim.keymap.set('n', 'j', 'gj', { buffer = true })
-    vim.keymap.set('n', 'k', 'gk', { buffer = true })
+    set_text_opts()
   end,
 })
 

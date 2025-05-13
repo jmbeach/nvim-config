@@ -102,7 +102,7 @@ return {
         function()
           require('CopilotChat').toggle()
         end,
-        mode = 'n',
+        mode = { 'n', 'v' },
         desc = '[T]oggle Copilot Chat',
       },
     },
