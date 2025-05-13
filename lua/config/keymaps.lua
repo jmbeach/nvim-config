@@ -4,7 +4,12 @@ local is_mac = vim.loop.os_uname().sysname == 'Darwin'
 local is_tmux = os.getenv 'TMUX' ~= nil
 
 -- see messages
-map('n', '<leader>xm', '<cmd>messages<cr>', { desc = 'Messages' })
+local function show_messages_in_buffer()
+  vim.cmd 'belowright split'
+  vim.cmd 'enew'
+  vim.cmd "put =execute('messages')"
+end
+map('n', '<leader>xm', show_messages_in_buffer, { desc = 'Messages' })
 map('n', '<leader>y', '"+yy', { desc = 'Copy line to clipboard' })
 
 -- copy / paste to clipboard
