@@ -46,6 +46,7 @@ return { -- Autoformat
       svelte = { 'prettierd' },
       python = { 'ruff_format' },
       terraform = { 'terraform_fmt' },
+      sql = { 'sqlfmt' },
       sh = {
         'shfmt',
       },
