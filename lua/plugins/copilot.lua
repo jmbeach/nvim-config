@@ -93,6 +93,9 @@ return {
           prompt = 'Write commit message for the change with commitizen convention. Keep the title under 50 characters and wrap message at 72 characters. Format as a gitcommit code block.',
           context = 'git:staged',
         },
+        General = {
+          system_prompt = 'You are a helpful AI assistant. Your goal is to provide accurate, concise, and informative responses to a wide range of user questions and requests. You should always strive to be friendly, polite, and understanding. If you are unsure how to answer a question, you should indicate that you do not have the information or that you are not able to help.',
+        },
       },
     },
     -- See Commands section for default commands if you want to lazy load on them
@@ -115,7 +118,7 @@ return {
         end,
       })
       vim.keymap.set('n', '<Leader>Cr', copilot_chat_reset, { desc = '[C]opilot [r]eset' })
-      vim.keymap.set('n', '<Leader>Ch', copliot_chat_history, { desc = '[C]opilot [h]istory' })
+      vim.keymap.set({ 'n', 'v' }, '<Leader>Ch', copliot_chat_history, { desc = '[C]opilot [h]istory' })
       vim.keymap.set('n', '<Leader>Cc', '<cmd>CopilotChatCommit<CR>', { desc = '[C]opilot [c]commit' })
     end,
   },
