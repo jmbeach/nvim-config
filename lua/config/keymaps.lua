@@ -7,6 +7,7 @@ local is_tmux = os.getenv 'TMUX' ~= nil
 local function show_messages_in_buffer()
   vim.cmd 'belowright split'
   vim.cmd 'enew'
+  vim.bo.buftype = 'nofile'
   vim.cmd "put =execute('messages')"
 end
 map('n', '<leader>xm', show_messages_in_buffer, { desc = 'Messages' })
