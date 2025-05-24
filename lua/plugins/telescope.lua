@@ -1,3 +1,22 @@
+local function search_manual_on_select(prompt_bufnr)
+  local selection = require('telescope.actions.state').get_selected_entry(prompt_bufnr)
+  require('telescope.actions').close(prompt_bufnr)
+  local path_to_file = vim.fn.getenv 'HOME' .. '/Documents/manuals/' .. selection.value
+  vim.cmd('edit ' .. path_to_file)
+  return true
+end
+local function search_manual()
+  local telescope = require 'telescope.builtin'
+  telescope.find_files {
+    prompt_title = 'Search Manuals',
+    cwd = vim.fn.getenv 'HOME' .. '/Documents/manuals',
+    attach_mappings = function(_, map)
+      map({ 'i', 'n' }, '<CR>', search_manual_on_select)
+      map({ 'i', 'n' }, '<C-y>', search_manual_on_select)
+      return true
+    end,
+  }
+end
 return { -- Fuzzy Finder (files, lsp, etc)
   'nvim-telescope/telescope.nvim',
   event = 'VimEnter',
@@ -124,6 +143,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
     vim.keymap.set('n', '<leader>st', '<cmd>Telescope thesaurus lookup<CR>', { desc = '[S]earch [T]hesaurus' })
     vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+    vim.keymap.set('n', '<Leader>sm', search_manual, { desc = '[S]earch [m]anual' })
 
     -- Slightly advanced example of overriding default behavior and theme
     vim.keymap.set('n', '<leader>/', function()

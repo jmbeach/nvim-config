@@ -58,6 +58,8 @@ vim.api.nvim_create_autocmd('User', {
 local fileTypes = {
   ['**/*.ah2'] = 'autohotkey',
   ['**/*.log'] = 'log',
+  ['*.man'] = 'man',
+  ['**/*.man'] = 'man',
 }
 
 for extension, filetype in pairs(fileTypes) do
