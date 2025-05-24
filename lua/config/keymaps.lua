@@ -54,3 +54,5 @@ map('n', '<leader>uD', '<cmd>windo diffoff<cr>', { desc = '[D]iff off' })
 
 -- Map leader U to undo tree
 map('n', '<leader>U', '<cmd>UndotreeToggle<cr>', { desc = 'Undo tree' })
+
+map('n', '<C-w>z', '<C-w>_<C-w>|', { desc = '[W]indow [Z]oom' })
