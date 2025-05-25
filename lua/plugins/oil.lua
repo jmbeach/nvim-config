@@ -1,11 +1,20 @@
+function string:startswith(start)
+  return self:sub(1, #start) == start
+end
+
 -- Open oil on leader + e
-local open_oil = function()
+local toggle_oil = function()
+  local current_buffer = vim.fn.expand '%'
+  if string.startswith(current_buffer, 'oil://') then
+    vim.cmd 'close'
+    return
+  end
   vim.cmd 'vsplit | wincmd h | vertical resize 50'
   require('oil').open()
 end
 
 local select = function()
-  entry = require('oil').get_cursor_entry()
+  local entry = require('oil').get_cursor_entry()
   require('oil').select()
   -- Close the oil window if the selecttion is not a directory
   -- and more than one window is open
@@ -42,6 +51,12 @@ return {
         ['g.'] = 'actions.toggle_hidden',
         ['g\\'] = 'actions.toggle_trash',
         ['q'] = 'actions.close',
+        ['<C-l>'] = function()
+          vim.cmd 'wincmd l'
+        end,
+        ['<C-h>'] = function()
+          vim.cmd 'wincmd h'
+        end,
       },
       float = {
         padding = 2,
@@ -58,6 +73,6 @@ return {
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   keys = {
     -- Open oil on leader + e
-    { '<leader>e', open_oil, desc = 'Open file explorer' },
+    { '<leader>e', toggle_oil, desc = 'Open file explorer' },
   },
 }
