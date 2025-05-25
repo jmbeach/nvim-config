@@ -253,6 +253,10 @@ return {
       },
     }
 
+    local non_mason_servers = {
+      fish_lsp = {},
+    }
+
     -- Ensure the servers and tools above are installed
     --
     -- To check the current status of installed tools and/or manually install
@@ -286,5 +290,8 @@ return {
         end,
       },
     }
+    for server_name, server in pairs(non_mason_servers) do
+      require('lspconfig')[server_name].setup(server)
+    end
   end,
 }
