@@ -32,7 +32,7 @@ return { -- Autoformat
       },
     },
     formatters_by_ft = {
-      html = { 'prettierd' },
+      html = { 'htmlbeautifier' },
       lua = { 'stylua' },
       yaml = { 'prettierd' },
       astro = { 'prettier' },
@@ -42,7 +42,7 @@ return { -- Autoformat
       -- You can use a sub-list to tell conform to run *until* a formatter
       -- is found.
       javascript = { 'prettierd' },
-      json = { 'prettierd' },
+      json = { 'jq' },
       svelte = { 'prettierd' },
       python = { 'ruff_format' },
       terraform = { 'terraform_fmt' },
