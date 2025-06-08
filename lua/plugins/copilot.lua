@@ -50,9 +50,9 @@ return {
         '<leader>tc',
         function()
           if copilot_enabled then
-            vim.cmd 'Copilot enable'
-          else
             vim.cmd 'Copilot disable'
+          else
+            vim.cmd 'Copilot enable'
           end
           copilot_enabled = not copilot_enabled
         end,
