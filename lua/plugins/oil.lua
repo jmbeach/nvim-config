@@ -24,10 +24,12 @@ return {
         ['<C-s>'] = 'actions.select_vsplit',
         ['<CR>'] = select,
         ['<C-y'] = select,
-        ['<C-h>'] = 'actions.select_split',
         ['<C-t>'] = 'actions.select_tab',
         ['<C-p>'] = 'actions.preview',
         ['<C-c>'] = 'actions.close',
+        ['<C-h>'] = function()
+          vim.cmd 'wincmd h'
+        end,
         ['<C-l>'] = function()
           vim.cmd 'wincmd l'
         end,
