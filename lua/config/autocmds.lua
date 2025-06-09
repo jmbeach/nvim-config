@@ -41,6 +41,9 @@ vim.api.nvim_create_autocmd('User', {
     vim.cmd 'Limelight'
     require('lualine').hide()
     vim.cmd 'GitBlameDisable'
+    vim.opt_local.wrap = true
+    vim.opt_local.spell = true
+    vim.opt_local.linebreak = true
   end,
 })
 

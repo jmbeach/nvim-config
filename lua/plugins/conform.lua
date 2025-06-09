@@ -35,7 +35,7 @@ return { -- Autoformat
       html = { 'prettierd' },
       lua = { 'stylua' },
       yaml = { 'prettierd' },
-      astro = { 'prettierd' },
+      astro = { 'prettier' },
       -- Conform can also run multiple formatters sequentially
       -- python = { "isort", "black" },
       --
