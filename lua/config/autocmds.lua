@@ -84,3 +84,18 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', '<leader>ce', '<cmd>Rest env select<cr>', { desc = 'Rest env select' })
   end,
 })
+
+-- HTML / Astro
+local htmlFileTypes = {
+  'html',
+  'astro',
+}
+for _, filetype in ipairs(htmlFileTypes) do
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = filetype,
+    group = augroup 'html_astro',
+    callback = function()
+      vim.cmd 'set iskeyword=@,48-57,_,192-255,$,%'
+    end,
+  })
+end
