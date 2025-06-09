@@ -17,6 +17,14 @@ local function search_manual()
     end,
   }
 end
+local function open_copilot_chat_actions()
+  local actions = require 'CopilotChat.actions'
+  require('CopilotChat.integrations.telescope').pick(actions.help_actions())
+end
+local function open_copilot_chat_prompts()
+  local actions = require 'CopilotChat.actions'
+  require('CopilotChat.integrations.telescope').pick(actions.prompt_actions())
+end
 return { -- Fuzzy Finder (files, lsp, etc)
   'nvim-telescope/telescope.nvim',
   event = 'VimEnter',
@@ -144,6 +152,8 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set('n', '<leader>st', '<cmd>Telescope thesaurus lookup<CR>', { desc = '[S]earch [T]hesaurus' })
     vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
     vim.keymap.set('n', '<Leader>sm', search_manual, { desc = '[S]earch [m]anual' })
+    vim.keymap.set('n', '<leader>Ch', open_copilot_chat_actions, { desc = '[C]opilotChat - [H]elp actions' })
+    vim.keymap.set('n', '<leader>Cp', open_copilot_chat_prompts, { desc = '[C]opilotChat - [P]rompts' })
 
     -- Slightly advanced example of overriding default behavior and theme
     vim.keymap.set('n', '<leader>/', function()
