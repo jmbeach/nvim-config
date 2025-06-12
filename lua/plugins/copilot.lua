@@ -8,6 +8,19 @@ local function copilot_chat_save()
   if sanitized_prompt == '' then
     return
   end
+
+  -- Get list of files and sort by modification time
+  local dir = vim.fn.stdpath 'data' .. '/copilotchat_history'
+  local files = vim.fn.globpath(dir, 'copilot_*', false, true)
+  table.sort(files, function(a, b)
+    return vim.fn.getftime(a) < vim.fn.getftime(b)
+  end)
+
+  -- Delete oldest file if there are already 100 files
+  if #files >= 100 then
+    vim.fn.delete(files[1])
+  end
+
   local filename = string.format('copilot_%s_%s', date, sanitized_prompt)
   vim.cmd('CopilotChatSave ' .. filename)
 end
