@@ -217,6 +217,7 @@ return {
       --
       bashls = {},
 
+      groovyls = {},
       lua_ls = {
         -- cmd = { ... },
         -- filetypes = { ... },
