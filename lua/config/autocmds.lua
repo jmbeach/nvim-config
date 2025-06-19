@@ -106,3 +106,12 @@ for _, filetype in ipairs(htmlFileTypes) do
     end,
   })
 end
+
+-- CSV
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'csv',
+  group = augroup 'csv',
+  callback = function()
+    vim.cmd 'set nowrap'
+  end,
+})
