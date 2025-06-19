@@ -36,6 +36,7 @@ return {
         ['<C-t>'] = 'actions.select_tab',
         ['<C-p>'] = 'actions.preview',
         ['<C-c>'] = 'actions.close',
+        ['<C-x>'] = 'actions.discard_all_changes',
         ['<C-h>'] = function()
           vim.cmd 'wincmd h'
         end,
