@@ -60,22 +60,27 @@ vim.api.nvim_create_autocmd('User', {
 -- Set filetype for specific file extensions
 local fileTypes = {
   ['*.ah2'] = 'autohotkey',
-  ['**/*.ah2'] = 'autohotkey',
   ['*.log'] = 'log',
-  ['**/*.log'] = 'log',
-  ['*.man'] = 'man',
-  ['**/*.man'] = 'man',
 }
 
 for extension, filetype in pairs(fileTypes) do
   vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile', 'FileType' }, {
     pattern = extension,
-    group = augroup 'filetypes',
+    group = augroup('filetype_' .. filetype),
     callback = function()
-      vim.bo.filetype = filetype
+      vim.cmd('set ft=' .. filetype)
     end,
   })
 end
+
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile', 'FileType' }, {
+  pattern = '*.man',
+  group = augroup 'man_files',
+  callback = function()
+    vim.cmd 'set ft=man'
+    set_text_opts()
+  end,
+})
 
 -- Rest stuff
 vim.api.nvim_create_autocmd('FileType', {
