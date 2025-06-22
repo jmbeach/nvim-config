@@ -38,7 +38,16 @@ end
 
 -- map leader b d to buffer delete
 map('n', '<leader>bd', '<cmd>bp|bd #<cr>', { desc = 'Buffer [d]elete' })
-map('n', '<leader>bx', '<cmd>%bd|e#<cr>', { desc = 'Buffer e[x]it all but current' })
+
+local function delete_all_but_open_buffers()
+  local bufnrs = vim.api.nvim_list_bufs()
+  for _, bufnr in ipairs(bufnrs) do
+    if bufnr ~= vim.api.nvim_get_current_buf() then
+      vim.api.nvim_buf_delete(bufnr, { force = false })
+    end
+  end
+end
+map('n', '<leader>bx', delete_all_but_open_buffers, { desc = 'Buffer e[x]it all but current' })
 
 -- map leader tab tab to next tab
 map('n', '<leader><tab><tab>', '<cmd>tabnext<cr>', { desc = '<Tab> [t]o next' })
