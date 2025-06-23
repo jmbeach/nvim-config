@@ -11,12 +11,17 @@ local function show_messages_in_buffer()
   vim.cmd "put =execute('messages')"
 end
 map('n', '<leader>xm', show_messages_in_buffer, { desc = 'Messages' })
-map('n', '<leader>y', '"+yy', { desc = 'Copy line to clipboard' })
 
 -- copy / paste to clipboard
 map('v', '<leader>y', '"+y', { desc = 'Copy to clipboard' })
 map('n', '<leader>y', '"+yy', { desc = 'Copy line to clipboard' })
 map('n', '<leader>p', '"+p', { desc = 'Paste from clipboard' })
+local function delete_and_yank_to_clipboard()
+  local reg = vim.fn.getreg '"'
+  vim.cmd 'normal! "_d'
+  vim.fn.setreg('+', reg)
+end
+map('v', '<leader>d', delete_and_yank_to_clipboard, { desc = 'Delete and yank to clipboard' })
 
 -- Keep cursor centered when paging up and down
 map('n', '<C-u>', '<C-u>zz', { desc = 'Half page up' })
