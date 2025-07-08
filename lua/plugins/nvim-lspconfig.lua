@@ -220,6 +220,10 @@ return {
       --
       bashls = {},
 
+      gopls = {},
+
+      java_language_server = {},
+
       lua_ls = {
         -- cmd = { ... },
         -- filetypes = { ... },
