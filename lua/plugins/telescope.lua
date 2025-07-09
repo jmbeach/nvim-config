@@ -86,6 +86,18 @@ return { -- Fuzzy Finder (files, lsp, etc)
       local line = action_state.get_current_line()
       require('telescope.builtin').find_files { hidden = true, no_ignore = true, default_text = line }
     end
+    local function move_buffer_to_end()
+      local action_state = require 'telescope.actions.state'
+      local entry = action_state.get_selected_entry()
+      vim.api.nvim_buf_delete(entry.bufnr, {})
+      local new_buf_id = vim.api.nvim_create_buf(true, false)
+      local prompt_bufnr = vim.api.nvim_get_current_buf()
+      actions.close(prompt_bufnr)
+      vim.cmd('buffer ' .. new_buf_id)
+      vim.cmd('e ' .. entry.filename)
+      local builtin = require 'telescope.builtin'
+      builtin.buffers()
+    end
     -- [[ Configure Telescope ]]
     -- See `:help telescope` and `:help telescope.setup()`
     require('telescope').setup {
@@ -108,9 +120,11 @@ return { -- Fuzzy Finder (files, lsp, etc)
           mappings = {
             n = {
               ['<c-d>'] = 'delete_buffer',
+              ['<c-e>'] = move_buffer_to_end,
             },
             i = {
               ['<c-d>'] = 'delete_buffer',
+              ['<c-e>'] = move_buffer_to_end,
             },
           },
         },
