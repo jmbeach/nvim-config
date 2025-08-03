@@ -70,6 +70,6 @@ end, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', function()
   vim.diagnostic.jump { count = 1 }
 end, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
+vim.keymap.set('n', '<leader>xe', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '[q', '<cmd>cprev<cr>', { desc = 'Go to previous [Q]uickfix list item' })
 vim.keymap.set('n', ']q', '<cmd>cnext<cr>', { desc = 'Go to next [Q]uickfix list item' })
