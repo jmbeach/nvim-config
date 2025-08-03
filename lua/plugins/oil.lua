@@ -1,13 +1,17 @@
-function string:startswith(start)
-  return self:sub(1, #start) == start
-end
+local Util = require 'utils.utils'
 
 -- Open oil on leader + e
 local toggle_oil = function()
-  local current_buffer = vim.fn.expand '%'
-  if string.startswith(current_buffer, 'oil://') then
-    vim.cmd 'close'
-    return
+  local bufs = vim.api.nvim_list_bufs()
+  for _, value in ipairs(bufs) do
+    local buf_name = vim.api.nvim_buf_get_name(value)
+    if StringStartsWith(buf_name, 'oil://') then
+      local is_shown = Util.nvim.is_buffer_shown(value)
+      vim.api.nvim_buf_delete(value, {})
+      if is_shown then
+        return
+      end
+    end
   end
   vim.cmd 'vsplit | wincmd h | vertical resize 50'
   require('oil').open()
