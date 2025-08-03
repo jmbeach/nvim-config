@@ -36,17 +36,12 @@ return { -- Autoformat
       lua = { 'stylua' },
       yaml = { 'prettierd' },
       astro = { 'prettier' },
-      -- Conform can also run multiple formatters sequentially
-      -- python = { "isort", "black" },
-      --
-      -- You can use a sub-list to tell conform to run *until* a formatter
-      -- is found.
       javascript = { 'prettierd' },
       json = { 'jq' },
       svelte = { 'prettierd' },
-      python = { 'ruff_format' },
+      python = { 'autopep8' },
       terraform = { 'terraform_fmt' },
-      sql = { 'sqlfmt' },
+      sql = { 'sleek' },
       sh = {
         'shfmt',
       },
