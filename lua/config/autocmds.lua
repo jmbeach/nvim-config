@@ -115,3 +115,15 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.cmd 'set nowrap'
   end,
 })
+
+-- Disable syntax highlighting when buffer is large
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile', 'FileType' }, {
+  callback = function()
+    local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()))
+    if ok and stats and (stats.size > 900000) then -- 900 kb
+      vim.cmd 'syntax off'
+      vim.treesitter.stop()
+      vim.notify('Syntax highlighting disabled for large file. File size: ' .. stats.size, vim.log.levels.WARN)
+    end
+  end,
+})
