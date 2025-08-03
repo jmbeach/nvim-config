@@ -339,3 +339,13 @@ require 'config.keymaps'
 require 'config.autocmds'
 require 'config.usercmds'
 require 'utils.global'
+
+local private_dir = vim.fn.expand '../nvim-private'
+local init_file = private_dir .. '/init.lua'
+if vim.fn.isdirectory(private_dir) == 1 and vim.fn.filereadable(init_file) == 1 then
+  vim.cmd.source(init_file)
+end
+
+-- Disable python plugins
+vim.g.loaded_python_provider = 0
+vim.g.loaded_python3_provider = 0
