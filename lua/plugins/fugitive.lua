@@ -5,11 +5,11 @@ return {
   },
   lazy = false,
   config = function()
-    vim.api.nvim_create_autocmd('User', {
-      pattern = { 'FugitiveIndex' },
-      group = vim.api.nvim_create_augroup('mine_fugitive', { clear = true }),
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = { 'gitcommit' },
+      group = vim.api.nvim_create_augroup('my_gitcommit', { clear = true }),
       callback = function()
-        -- can add keymaps here
+        vim.cmd 'wincmd H'
       end,
     })
   end,
