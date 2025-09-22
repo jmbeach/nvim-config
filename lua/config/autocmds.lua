@@ -23,7 +23,6 @@ local function set_text_opts()
   vim.opt_local.linebreak = true
   vim.keymap.set('n', 'j', 'gj', { buffer = true })
   vim.keymap.set('n', 'k', 'gk', { buffer = true })
-  vim.opt_local.foldcolumn = '8'
 end
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'text', 'gitcommit', 'markdown', 'help' },
