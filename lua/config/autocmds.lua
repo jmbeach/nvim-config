@@ -119,7 +119,7 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile', 'FileType' }, {
   callback = function()
     local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()))
-    if ok and stats and (stats.size > 900000) then -- 900 kb
+    if ok and stats and (stats.size > 1000000) then -- 1 MB
       vim.cmd 'syntax off'
       vim.treesitter.stop()
       vim.notify('Syntax highlighting disabled for large file. File size: ' .. stats.size, vim.log.levels.WARN)
