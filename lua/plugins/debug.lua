@@ -106,7 +106,7 @@ return {
     local getPythonPath = function()
       local cwd = vim.fn.getcwd()
       if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
-        return cwd .. 'venv/bin/python'
+        return cwd .. '/venv/bin/python'
       elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
         return cwd .. '/.venv/bin/python'
       else
@@ -118,20 +118,25 @@ return {
         {
           type = 'python',
           request = 'launch',
+          console = 'integratedTerminal',
           name = 'Launch file',
           program = '${file}',
           pythonPath = getPythonPath,
         },
-      },
-      {
-        type = 'python',
-        request = 'launch',
-        console = 'integratedTerminal',
-        name = 'Launch module',
-        module = function()
-          return vim.fn.input 'Module name: '
-        end,
-        pythonPath = getPythonPath,
+        {
+          type = 'python',
+          request = 'launch',
+          console = 'integratedTerminal',
+          name = 'Launch module',
+          module = function()
+            return vim.fn.input 'Module name: '
+          end,
+          pythonPath = getPythonPath,
+          args = function()
+            local arg = vim.fn.input 'Args: '
+            return { arg }
+          end,
+        },
       },
     }
   end,
