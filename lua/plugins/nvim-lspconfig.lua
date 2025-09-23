@@ -196,6 +196,17 @@ return {
     --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
     --  - settings (table): Override the default settings passed when initializing the server.
     --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+
+    local getPythonPath = function()
+      local cwd = vim.fn.getcwd()
+      if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
+        return cwd .. '/venv/bin/python'
+      elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
+        return cwd .. '/.venv/bin/python'
+      else
+        return '/usr/bin/python'
+      end
+    end
     local servers = {
       emmet_language_server = {
         filetypes = { 'css', 'eruby', 'html', 'htmldjango', 'javascriptreact', 'less', 'pug', 'sass', 'scss', 'typescriptreact', 'htmlangular', 'astro' },
@@ -205,7 +216,7 @@ return {
       pyright = {
         settings = {
           python = {
-            venvPath = '.venv',
+            pythonPath = getPythonPath(),
           },
         },
       },
