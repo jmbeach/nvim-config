@@ -30,6 +30,9 @@ return { -- Autoformat
       shfmt = {
         prepend_args = { '-i', '4' },
       },
+      sleek = {
+        prepend_args = { '-i', '2' },
+      },
     },
     formatters_by_ft = {
       html = { 'htmlbeautifier' },
