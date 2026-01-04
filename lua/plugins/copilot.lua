@@ -131,7 +131,7 @@ return {
         end,
       })
       vim.keymap.set('n', '<Leader>Cr', copilot_chat_reset, { desc = '[C]opilot [r]eset' })
-      vim.keymap.set({ 'n', 'v' }, '<Leader>Ch', copliot_chat_history, { desc = '[C]opilot [h]istory' })
+      vim.keymap.set({ 'n', 'v' }, '<Leader>CH', copliot_chat_history, { desc = '[C]opilot [H]istory' })
       vim.keymap.set('n', '<Leader>Cc', '<cmd>CopilotChatCommit<CR>', { desc = '[C]opilot [c]ommit' })
       vim.keymap.set('n', '<Leader>CC', '<cmd>CopilotChatCommitCommitizen<CR>', { desc = '[C]opilot [C]ommitizen' })
     end,
