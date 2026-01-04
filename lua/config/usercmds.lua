@@ -16,3 +16,15 @@ vim.api.nvim_create_user_command('FormatEnable', function()
 end, {
   desc = 'Re-enable autoformat-on-save',
 })
+vim.api.nvim_create_user_command('SyntaxDisable', function()
+  vim.cmd 'syntax off'
+  vim.treesitter.stop()
+end, {
+  desc = 'Disable syntax highlighting',
+})
+vim.api.nvim_create_user_command('SyntaxEnable', function()
+  vim.cmd 'syntax on'
+  vim.treesitter.start()
+end, {
+  desc = 'Enable syntax highlighting',
+})
