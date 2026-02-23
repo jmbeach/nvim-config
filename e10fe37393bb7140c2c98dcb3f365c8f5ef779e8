@@ -1,0 +1,25 @@
+lua/config/keymaps.lua
+  503470c088ab6d45 32,39
+lua/utils/utils.lua
+  503470c088ab6d45 29-49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.4",
+  "base_commit_sha": "e10fe37393bb7140c2c98dcb3f365c8f5ef779e8",
+  "prompts": {
+    "503470c088ab6d45": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1a2f6f97-f01d-402e-8f9b-8e8f895144a7",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Jared Beach <jaredbeachdesign@gmail.com>",
+      "messages": [],
+      "total_additions": 25,
+      "total_deletions": 0,
+      "accepted_lines": 23,
+      "overriden_lines": 6
+    }
+  }
+}
