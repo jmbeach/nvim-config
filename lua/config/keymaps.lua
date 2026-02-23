@@ -18,12 +18,22 @@ map('n', '<leader>y', '"+yy', { desc = 'Copy line to clipboard' })
 map('n', '<leader>p', '"+p', { desc = 'Paste from clipboard' })
 map('v', '<leader>d', '"+d', { desc = 'Delete and yank to clipboard' })
 
+-- direction keys for annoying iPad problems
+map('v', '<A-j>', 'j', { desc = 'Make alt-j just j' })
+map('v', '<A-k>', 'k', { desc = 'Make alt-k just k' })
+
 -- Keep cursor centered when paging up and down
 map('n', '<C-u>', '<C-u>zz', { desc = 'Half page up' })
 map('n', '<C-d>', '<C-d>zz', { desc = 'Half page down' })
 
 -- Map leader f p to print full file path
 map('n', '<leader>fp', ':lua print(vim.api.nvim_buf_get_name(0))<cr>', { desc = 'Print full file path' })
+
+-- Copy @file or @file#line / @file#start-end reference to clipboard
+map('n', '<leader>ac', function()
+  require('utils.utils').copy_file_ref 'n'
+end, { desc = '[A]i [C]opy reference' })
+map('v', '<leader>ac', ':<C-u>lua require("utils.utils").copy_file_ref("v")<CR>', { desc = '[A]i [C]opy reference' })
 
 -- H and L for next and previous buffers
 map('n', '<S-l>', ':bn<cr>', { desc = 'Buffer next' })
