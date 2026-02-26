@@ -26,4 +26,25 @@ function M.nvim.is_buffer_shown(bufnr)
   return false
 end
 
+-- Copy a @file#line or @file#start-end reference to the system clipboard.
+-- Pass mode='v' when called from a visual mapping (uses '< and '> marks).
+-- Pass mode='n' (or omit) for just the file path with no line number.
+function M.copy_file_ref(mode)
+  local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':.')
+  local ref
+  if mode == 'v' then
+    local start_line = vim.fn.line "'<"
+    local end_line = vim.fn.line "'>"
+    if start_line == end_line then
+      ref = '@' .. path .. '#' .. start_line
+    else
+      ref = '@' .. path .. '#' .. start_line .. '-' .. end_line
+    end
+  else
+    ref = '@' .. path
+  end
+  vim.fn.setreg('+', ref)
+  vim.notify('Copied: ' .. ref)
+end
+
 return M
