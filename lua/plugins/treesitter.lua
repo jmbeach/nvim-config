@@ -2,7 +2,7 @@ return { -- Highlight, edit, and navigate code
   'nvim-treesitter/nvim-treesitter',
   build = ':TSUpdate',
   opts = {
-    ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'log' },
+    ensure_installed = { 'bash', 'c', 'diff', 'gitcommit', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'log' },
     -- Autoinstall languages that are not installed
     auto_install = true,
     highlight = {
@@ -33,6 +33,10 @@ return { -- Highlight, edit, and navigate code
     -- Adds a parser for log files
     -- Have to manaully copy files from https://github.com/Tudyx/tree-sitter-log/tree/main/queries
     -- to ~/.local/share/nvim/lazy/nvim-treesitter/queries/log
+    -- On arm64 Mac, you may need to recompile the parser locally:
+    --   cd /tmp && git clone https://github.com/Tudyx/tree-sitter-log.git && cd tree-sitter-log
+    --   cc -shared -o log.so -fPIC -I src src/parser.c
+    --   cp log.so ~/.local/share/nvim/lazy/nvim-treesitter/parser/log.so
     parser_config.log = {
       install_info = {
         url = 'https://github.com/Tudyx/tree-sitter-log.git', -- local path or git repo
