@@ -115,6 +115,26 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+-- Re-detect the macOS light/dark mode and apply the matching colorscheme
+-- Trigger with `:doautocmd User RefreshColorscheme` or `:RefreshColorscheme`
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'RefreshColorscheme',
+  group = augroup 'colorscheme',
+  callback = function()
+    -- Other platforms always use the dark flavor
+    local is_dark = true
+    if vim.fn.has 'mac' == 1 then
+      local style = vim.fn.system { 'defaults', 'read', '-g', 'AppleInterfaceStyle' }
+      is_dark = vim.v.shell_error == 0 and style:match 'Dark' ~= nil
+    end
+    vim.cmd.colorscheme(is_dark and 'catppuccin-frappe' or 'catppuccin-latte')
+  end,
+})
+
+vim.api.nvim_create_user_command('RefreshColorscheme', function()
+  vim.api.nvim_exec_autocmds('User', { pattern = 'RefreshColorscheme' })
+end, { desc = 'Re-detect macOS appearance and apply matching colorscheme' })
+
 -- Disable syntax highlighting when buffer is large
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile', 'FileType' }, {
   callback = function()
